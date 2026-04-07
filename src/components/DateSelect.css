@@ -1,0 +1,141 @@
+/* ── 인풋 필드 ── */
+.ds-wrapper {
+  flex: 1;
+}
+
+.ds-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #c4a882;
+  padding: 8px 0;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 14px;
+  color: #2C1810;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.ds-input:focus {
+  border-bottom-color: #8b6914;
+}
+
+.ds-input::placeholder {
+  color: #c4a882;
+}
+
+/* ── 달력 팝업 ── */
+.ds-calendar {
+  font-family: 'Noto Serif KR', serif !important;
+  background: #F5F0E4 !important;
+  border: 1.5px solid #4a3728 !important;
+  border-radius: 4px !important;
+  box-shadow: 4px 4px 0 #4a3728 !important;
+  padding: 4px !important;
+}
+
+/* 헤더 (월/년) */
+.ds-calendar .react-datepicker__header {
+  background: #3b2a1e !important;
+  border-bottom: 2px solid #8b6914 !important;
+  border-radius: 2px 2px 0 0 !important;
+  padding: 10px 0 8px !important;
+}
+
+.ds-calendar .react-datepicker__current-month {
+  display: none;
+}
+
+.ds-calendar .react-datepicker__month-dropdown-container,
+.ds-calendar .react-datepicker__year-dropdown-container {
+  margin: 0 4px;
+}
+
+/* 월/년 select */
+.ds-calendar .react-datepicker__month-select,
+.ds-calendar .react-datepicker__year-select {
+  background: transparent;
+  border: 1px solid #8b6914;
+  border-radius: 2px;
+  color: #F5F0E4;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 13px;
+  padding: 2px 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+.ds-calendar .react-datepicker__month-select option,
+.ds-calendar .react-datepicker__year-select option {
+  background: #3b2a1e;
+  color: #F5F0E4;
+}
+
+/* 요일 헤더 */
+.ds-calendar .react-datepicker__day-name {
+  color: #c4a882 !important;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  width: 32px !important;
+  line-height: 28px !important;
+}
+
+/* 날짜 셀 */
+.ds-calendar .react-datepicker__day {
+  color: #2C1810 !important;
+  font-size: 13px;
+  width: 32px !important;
+  line-height: 32px !important;
+  border-radius: 2px !important;
+  margin: 1px !important;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ds-calendar .react-datepicker__day:hover {
+  background: #e8dfc8 !important;
+  color: #3b2a1e !important;
+}
+
+.ds-calendar .react-datepicker__day--selected {
+  background: #3b2a1e !important;
+  color: #F5F0E4 !important;
+}
+
+.ds-calendar .react-datepicker__day--selected:hover {
+  background: #2C1810 !important;
+}
+
+.ds-calendar .react-datepicker__day--keyboard-selected {
+  background: #c4a882 !important;
+  color: #2C1810 !important;
+}
+
+.ds-calendar .react-datepicker__day--outside-month {
+  color: #c4a882 !important;
+}
+
+.ds-calendar .react-datepicker__day--today {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: #8b6914;
+}
+
+/* 이전/다음 화살표 */
+.ds-calendar .react-datepicker__navigation {
+  top: 10px !important;
+}
+
+.ds-calendar .react-datepicker__navigation-icon::before {
+  border-color: #c4a882 !important;
+}
+
+.ds-calendar .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: #F5F0E4 !important;
+}
+
+/* 삼각형 화살표 제거 */
+.react-datepicker__triangle {
+  display: none !important;
+}
