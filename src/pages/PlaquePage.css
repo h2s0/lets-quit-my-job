@@ -1,0 +1,130 @@
+.p-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #1a0e08;
+  background-image: radial-gradient(ellipse at center, #2C1810 0%, #1a0e08 70%);
+}
+
+.p-card {
+  width: 100%;
+  max-width: 420px;
+  background: #2C1810;
+  border: 2px solid #8b6914;
+  border-radius: 6px;
+  padding: 32px 36px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 0 40px rgba(139,105,20,0.2);
+}
+
+.p-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: #c4a882;
+  border-style: solid;
+}
+.p-corner.tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+.p-corner.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+.p-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+.p-corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+.p-hline {
+  width: 80%;
+  height: 1px;
+  background: #8b6914;
+  margin: 8px 0;
+}
+
+.p-stars {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.p-stars span {
+  color: #8b6914;
+  font-size: 12px;
+}
+
+.p-badge-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #c4a882;
+  letter-spacing: 0.5em;
+  margin: 4px 0;
+}
+
+.p-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #F5F0E4;
+  letter-spacing: 0.2em;
+  margin: 16px 0 4px;
+}
+
+.p-subtitle {
+  font-size: 12px;
+  color: #8b6914;
+  letter-spacing: 0.15em;
+  margin-bottom: 20px;
+}
+
+.p-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 15px;
+  color: #c4a882;
+  line-height: 2;
+  text-align: center;
+}
+
+.p-text strong {
+  color: #F5F0E4;
+  font-weight: 700;
+}
+
+.p-seal {
+  margin-top: 24px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2.5px solid #8b1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-seal-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 9px;
+  color: #8b1a1a;
+  text-align: center;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.p-cta {
+  margin-top: 24px;
+  background: #8b6914;
+  color: #F5F0E4;
+  border: none;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  padding: 14px 28px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  width: 100%;
+}
+
+.p-cta:hover { background: #a07820; }
+.p-cta:active { transform: scale(0.98); }
