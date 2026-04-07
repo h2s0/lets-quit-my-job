@@ -1,5 +1,7 @@
 export interface FormData {
   company: string;
+  team: string;
+  position: string;
   name: string;
   monthlySalary: number;
   startDate: string;
@@ -7,4 +9,3 @@ export interface FormData {
   reason: string;
 }
 
-export type Page = 'resignation' | 'plaque' | 'severance';

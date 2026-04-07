@@ -1,13 +1,14 @@
+import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import type { FormData } from '../types';
 import { formatTenure } from '../utils/calc';
 import './PlaquePage.css';
 
-interface Props {
-  data: FormData;
-  onNext: () => void;
-}
+export default function PlaquePage() {
+  const { state: data } = useLocation() as { state: FormData | null };
+  const navigate = useNavigate();
 
-export default function PlaquePage({ data, onNext }: Props) {
+  if (!data) return <Navigate to="/" replace />;
+
   const tenure = formatTenure(data.startDate, data.endDate);
 
   return (
@@ -27,23 +28,21 @@ export default function PlaquePage({ data, onNext }: Props) {
         <div className="p-hline" />
 
         <div className="p-name">{data.name} 님</div>
-        <div className="p-subtitle">{data.name.replace(/\s/g, '').toUpperCase()}</div>
+        {(data.team || data.position) && (
+          <div className="p-meta">
+            {[data.team, data.position].filter(Boolean).join(' · ')}
+          </div>
+        )}
 
         <p className="p-text">
           재직해 주신 <strong>{tenure}</strong> 동안<br />
           수고 많으셨습니다.<br /><br />
-          귀하 같은 인재를 만난 것은<br />
-          <strong>{data.company}</strong>에게<br />
-          큰 행운이었습니다.<br /><br />
-          앞으로의 여정을 진심으로<br />
-          응원합니다.
+          {data.name}님 같은 인재를 만난 것은<br />
+          <strong>{data.company}</strong>에게 큰 행운이었습니다.<br /><br />
+          앞으로의 여정을 진심으로 응원합니다.
         </p>
 
-        <div className="p-seal">
-          <span className="p-seal-text">{data.company}<br />직인</span>
-        </div>
-
-        <button className="p-cta" onClick={onNext}>
+        <button className="p-cta" onClick={() => navigate('/severance', { state: data })}>
           퇴 직 금 수 령 하 기 →
         </button>
       </div>
