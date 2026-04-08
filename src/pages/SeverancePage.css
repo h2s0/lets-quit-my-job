@@ -120,3 +120,24 @@
   background: #3b2a1e;
   color: #F5F0E4;
 }
+
+.sv-back {
+  display: block;
+  width: calc(100% - 48px);
+  margin: 0 24px 24px;
+  border: none;
+  background: transparent;
+  padding: 8px;
+  text-align: center;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: #8b6914;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sv-back:hover {
+  color: #3b2a1e;
+}

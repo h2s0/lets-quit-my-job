@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { useLocation, Navigate } from "react-router-dom";
 import type { FormData } from "../types";
 import { calcSeverance, formatMoney } from "../utils/calc";
 import MoneyRain from "../components/MoneyRain";
 import "./SeverancePage.css";
 
-export default function SeverancePage() {
-  const { state: data } = useLocation() as { state: FormData | null };
-  const [copied, setCopied] = useState(false);
+interface Props {
+  data: FormData;
+  onRestart: () => void;
+}
 
-  if (!data) return <Navigate to="/" replace />;
+export default function SeverancePage({ data, onRestart }: Props) {
+  const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
     const url = window.location.origin + '/';
@@ -54,7 +55,10 @@ export default function SeverancePage() {
         </div>
 
         <button className="sv-restart" onClick={handleShare}>
-          {copied ? '링 크 복 사 완 료 ✓' : '동 료 에 게 퇴 사 권 유 하 기 →'}
+          {copied ? "링 크 복 사 완 료 ✓" : "동 료 에 게 퇴 사 권 유 하 기 →"}
+        </button>
+        <button className="sv-back" onClick={onRestart}>
+          처 음 으 로
         </button>
       </div>
     </div>
