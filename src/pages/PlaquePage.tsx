@@ -29,6 +29,7 @@ export default function PlaquePage() {
         <div className="p-hline" />
 
         <div className="p-name">{data.name} 님</div>
+        <br />
         {(data.team || data.position) && (
           <div className="p-meta">
             {[data.team, data.position].filter(Boolean).join(' · ')}
