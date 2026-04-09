@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import type { FormData } from '../types';
-import { formatTenure } from '../utils/calc';
+import { formatTenure, isEligible } from '../utils/calc';
 import './PlaquePage.css';
 
 export default function PlaquePage() {
@@ -10,6 +10,7 @@ export default function PlaquePage() {
   if (!data) return <Navigate to="/" replace />;
 
   const tenure = formatTenure(data.startDate, data.endDate);
+  const eligible = isEligible(data.startDate, data.endDate);
 
   return (
     <div className="p-page">
@@ -43,7 +44,7 @@ export default function PlaquePage() {
         </p>
 
         <button className="p-cta" onClick={() => navigate('/severance', { state: data })}>
-          퇴 직 금 수 령 하 기 →
+          {eligible ? '퇴 직 금 수 령 하 기 →' : '퇴 직 금 존 버 하 기 →'}
         </button>
       </div>
     </div>
