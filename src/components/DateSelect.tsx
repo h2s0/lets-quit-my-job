@@ -52,7 +52,7 @@ export default function DateSelect({ value, onChange, placeholder = '날짜 선�
     <DatePicker
       locale="ko"
       selected={toDate(value)}
-      onChange={(d) => onChange(toStr(d))}
+      onChange={(d: Date | null) => onChange(toStr(d))}
       dateFormat="yyyy. MM. dd"
       placeholderText={placeholder}
       showMonthDropdown
