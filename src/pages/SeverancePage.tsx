@@ -74,7 +74,7 @@ export default function SeverancePage() {
           </div>
 
           <button className="sv-restart" onClick={handleShare}>
-            {copied ? "링크복사완료 ✓" : "동료에게 퇴사 권유하기 →"}
+            {copied ? "링크 복사 완료 ✓" : "동료에게 퇴사 권유하기 →"}
           </button>
         </div>
       </div>
@@ -118,7 +118,7 @@ export default function SeverancePage() {
         </div>
 
         <button className="sv-restart" onClick={handleShare}>
-          {copied ? "링크복사완료 ✓" : "동료에게 퇴사 권 유하기 →"}
+          {copied ? "링크 복사 완료 ✓" : "동료에게 퇴사 권유하기 →"}
         </button>
       </div>
     </div>
