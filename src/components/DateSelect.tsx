@@ -61,6 +61,9 @@ export default function DateSelect({ value, onChange, placeholder = '날짜 선�
       className="ds-input"
       wrapperClassName="ds-wrapper"
       calendarClassName="ds-calendar"
+      popperClassName="ds-popper"
+      popperPlacement="bottom-start"
+      portalId="date-picker-root"
     />
   );
 }
