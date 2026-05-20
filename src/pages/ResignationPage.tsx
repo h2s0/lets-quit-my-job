@@ -65,12 +65,17 @@ export default function ResignationPage() {
       <form className="r-card" onSubmit={handleSubmit}>
         <div className="r-header">
           <div className="r-deco" />
-          <h1 className="r-title">사 직 서</h1>
+          <h1 className="r-title">
+            <span aria-hidden="true">사 직 서</span>
+            <span className="sr-only">사직서 작성 및 퇴직금 계산기</span>
+          </h1>
           <div className="r-deco" />
         </div>
         <div className="r-divider" />
 
         <div className="r-body">
+          <h2 className="sr-only">퇴사 정보 입력</h2>
+
           <div className="r-field">
             <label className="r-label">소속 회사</label>
             <input

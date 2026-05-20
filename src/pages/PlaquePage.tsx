@@ -22,13 +22,19 @@ export default function PlaquePage() {
         <div className="p-stars">
           <span>★</span><span>★</span><span>★</span>
         </div>
-        <div className="p-badge-title">감 사 패</div>
+        <h1 className="p-badge-title">
+          <span aria-hidden="true">감 사 패</span>
+          <span className="sr-only">퇴사 감사패</span>
+        </h1>
         <div className="p-stars">
           <span>★</span><span>★</span><span>★</span>
         </div>
         <div className="p-hline" />
 
-        <div className="p-name">{data.name} 님</div>
+        <h2 className="p-name">
+          <span aria-hidden="true">{data.name} 님</span>
+          <span className="sr-only">{data.name}님의 재직 감사패</span>
+        </h2>
         <br />
         {(data.team || data.position) && (
           <div className="p-meta">

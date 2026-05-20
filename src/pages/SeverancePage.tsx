@@ -35,15 +35,18 @@ export default function SeverancePage() {
     return (
       <div className="sv-page">
         <div className="sv-card">
-          <div className="sv-header">
-            <span>— 퇴 직 금 존 버 계 산 기 —</span>
-          </div>
+          <header className="sv-header">
+            <h1>
+              <span aria-hidden="true">— 퇴 직 금 존 버 계 산 기 —</span>
+              <span className="sr-only">1년 미만 퇴직금 수령 가능일 계산기</span>
+            </h1>
+          </header>
 
           <div className="sv-main">
-            <div className="sv-congrats">💪 조금만 더, {data.name} {data.position}!</div>
+            <h2 className="sv-congrats">💪 조금만 더, {data.name} {data.position}!</h2>
 
             <div className="sv-amount-box sv-amount-box--pending">
-              <div className="sv-amount-label">퇴직금 수령까지</div>
+              <h3 className="sv-amount-label">퇴직금 수령까지</h3>
               <NumberFlow className="sv-amount-number sv-days-number" value={daysLeft} />
               <div className="sv-amount-unit">일 남음</div>
             </div>
@@ -85,15 +88,18 @@ export default function SeverancePage() {
       <MoneyRain />
 
       <div className="sv-card">
-        <div className="sv-header">
-          <span>— 퇴 직 금 영 수 증 —</span>
-        </div>
+        <header className="sv-header">
+          <h1>
+            <span aria-hidden="true">— 퇴 직 금 영 수 증 —</span>
+            <span className="sr-only">퇴직금 계산 결과 영수증</span>
+          </h1>
+        </header>
 
         <div className="sv-main">
-          <div className="sv-congrats">🎉 수고하셨습니다, {data.name} 님!</div>
+          <h2 className="sv-congrats">🎉 수고하셨습니다, {data.name} 님!</h2>
 
           <div className="sv-amount-box">
-            <div className="sv-amount-label">최 종 퇴 직 금</div>
+            <h3 className="sv-amount-label">최 종 퇴 직 금</h3>
             <NumberFlow
               className="sv-amount-number"
               value={amount}

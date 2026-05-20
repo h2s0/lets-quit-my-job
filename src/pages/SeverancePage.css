@@ -33,6 +33,12 @@
   letter-spacing: 0.3em;
 }
 
+.sv-header h1 {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
 .sv-main {
   padding: 36px 32px 24px;
   display: flex;
@@ -62,6 +68,7 @@
 
 .sv-amount-label {
   font-size: 13px;
+  font-weight: 400;
   color: #6B5744;
   letter-spacing: 0.3em;
   margin-bottom: 12px;
