@@ -14,47 +14,56 @@
   object-fit: fill;
   opacity: 1;
   filter: saturate(3.2) contrast(1.18);
-  animation: burst-pulse 1800ms ease-in-out infinite alternate;
+  animation: burst-pop 1100ms cubic-bezier(.2,.75,.3,1) infinite;
 }
 
-.money-note {
+.money-note,
+.confetti-piece {
   position: absolute;
   top: 44%;
   left: 50%;
-  width: 98px;
-  height: 98px;
   object-fit: contain;
   opacity: 0;
-  filter: drop-shadow(0 8px 7px rgba(34,39,32,.18));
-  animation: note-from-center-out 2440ms cubic-bezier(.12,.55,.22,1) var(--note-delay) infinite;
+  animation: note-firework 2200ms cubic-bezier(.12,.68,.2,1) var(--burst-delay) infinite;
 }
-.money-note:nth-of-type(3n) { width: 112px; height: 112px; }
-.money-note:nth-of-type(4n) { width: 84px; height: 84px; }
-@keyframes burst-pulse {
-  from { opacity: .72; transform: scale(.96); }
-  to { opacity: 1; transform: scale(1.025); }
+.money-note {
+  width: 84px;
+  height: 84px;
+  filter: drop-shadow(0 8px 7px rgba(34,39,32,.18));
+}
+.money-note:nth-of-type(3n) { width: 96px; height: 96px; }
+.money-note:nth-of-type(4n) { width: 72px; height: 72px; }
+.confetti-piece { width: 24px; height: 24px; }
+.confetti-piece:nth-of-type(2n) { width: 19px; height: 19px; }
+
+@keyframes burst-pop {
+  0% { opacity: .58; transform: scale(.97); }
+  14% { opacity: 1; transform: scale(1.03); }
+  62% { opacity: .84; transform: scale(1); }
+  82%, 100% { opacity: .62; transform: scale(.985); }
 }
 
-@keyframes note-from-center-out {
+@keyframes note-firework {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(0) scale(.22);
+    transform: translate(-50%, -50%) rotate(0) scale(.12);
   }
-  10% {
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(0) scale(.68);
+  8% {
+    opacity: .16;
+    transform: translate(calc(-50% + var(--kick-x)), calc(-50% + var(--kick-y))) rotate(0) scale(.58);
   }
-  72% {
+  58% {
     opacity: 1;
     transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) rotate(var(--note-rotation)) scale(1.05);
   }
   100% {
     opacity: 0;
-    transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) rotate(var(--note-rotation)) scale(.86);
+    transform: translate(calc(-50% + var(--far-x)), calc(-50% + var(--far-y))) rotate(var(--note-rotation)) scale(.78);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .money-burst,
-  .money-note { animation-duration: 1ms; animation-delay: 0ms; }
+  .money-note,
+  .confetti-piece { animation-duration: 1ms; animation-delay: 0ms; }
 }
