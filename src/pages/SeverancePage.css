@@ -38,6 +38,7 @@
   height: 747px;
   padding: 0 50px;
   background: transparent;
+  transition: height 280ms ease;
 }
 
 .sv-document-header { position: absolute; top: 96px; right: 50px; left: 50px; text-align: center; }
@@ -123,6 +124,7 @@
 .sv-details dl { padding: 0 14px 10px; }
 .sv-details dl > div { grid-template-columns: 90px 1fr; padding: 7px 0; border-top: 1px solid rgba(26,26,26,.2); }
 .sv-details dd { text-align: right; }
+.sv-document:has(.sv-details[open]) { height: 850px; }
 
 .sv-confirmation {
   position: absolute;
@@ -135,7 +137,9 @@
   gap: 16px;
   margin: 0;
   font-size: 13px;
+  transition: top 280ms ease;
 }
+.sv-document:has(.sv-details[open]) .sv-confirmation { top: 763px; }
 .sv-confirmation > div { display: flex; align-items: center; gap: 16px; }
 .sv-confirm-seal,
 .sv-patience-seal {
@@ -252,6 +256,7 @@
 .sv-document--pending .sv-disclaimer { top: 671px; right: 38px; left: 38px; margin: 0; }
 .sv-document--pending .sv-details { top: 697px; right: 36px; left: 36px; margin: 0; }
 .sv-document--pending .sv-details summary { padding-block: 11px; }
+.sv-document--pending:has(.sv-details[open]) { height: 850px; }
 .sv-document--pending + .sv-actions { margin-top: 0; }
 
 @media (min-width: 640px) {
