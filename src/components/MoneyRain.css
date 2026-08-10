@@ -17,9 +17,9 @@
   animation: burst-pop 2400ms cubic-bezier(.2,.75,.3,1) infinite;
 }
 
-.money-note,
-.confetti-piece {
+.money-note {
   position: absolute;
+  z-index: 2;
   top: 45%;
   left: 50%;
   object-fit: contain;
@@ -31,9 +31,6 @@
   height: var(--note-size);
   filter: contrast(1.08) saturate(1.05) drop-shadow(0 8px 7px rgba(34,39,32,.18));
 }
-.confetti-piece { width: 23px; height: 23px; }
-.confetti-piece:nth-of-type(3n) { width: 34px; height: 34px; }
-.confetti-piece:nth-of-type(5n) { width: 29px; height: 29px; }
 
 @keyframes burst-pop {
   0% { opacity: .58; transform: scale(.97); }
@@ -66,6 +63,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .money-burst,
-  .money-note,
-  .confetti-piece { animation-duration: 1ms; animation-delay: 0ms; }
+  .money-note { animation-duration: 1ms; animation-delay: 0ms; }
 }
