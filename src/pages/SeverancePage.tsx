@@ -62,7 +62,7 @@ export default function SeverancePage() {
         </div>
         <article className="sv-document sv-document--pending">
           <header className="sv-document-header">
-            <h1>퇴직금 존버 통지서</h1>
+            <h1>퇴직금존버통지서</h1>
             <div className="sv-double-rule" />
           </header>
 
@@ -115,7 +115,7 @@ export default function SeverancePage() {
       <MoneyRain />
       <article className="sv-document">
         <header className="sv-document-header">
-          <h1>퇴직금 명세서</h1>
+          <h1>퇴직금명세서</h1>
           <div className="sv-double-rule" />
         </header>
 

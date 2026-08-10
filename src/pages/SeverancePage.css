@@ -44,8 +44,8 @@
 .sv-document-header h1 {
   font-size: clamp(28px, 9.1vw, 42px);
   font-weight: 500;
-  letter-spacing: .22em;
-  text-indent: .22em;
+  letter-spacing: 0;
+  text-indent: 0;
   white-space: nowrap;
 }
 .sv-document:not(.sv-document--pending) .sv-document-header h1 { transform: translateY(7px); }
@@ -172,7 +172,6 @@
 .sv-document--pending { height: 750px; padding: 0 49px; }
 .sv-document--pending .sv-document-header { top: 39px; right: 37px; left: 37px; }
 .sv-document--pending .sv-document-header h1 { font-size: clamp(27px, 8.2vw, 38px); }
-.sv-document--pending .sv-document-header h1 { letter-spacing: .24em; text-indent: .24em; }
 .sv-document--pending .sv-document-header h1 { transform: translateY(11px); }
 .sv-document--pending .sv-double-rule { margin: 19px 0 0; }
 .sv-document--pending .sv-personal { top: 116px; right: 49px; left: 49px; }
@@ -218,9 +217,37 @@
 .sv-summary { position: absolute; top: 484px; right: 56px; left: 56px; margin: 0; }
 .sv-summary > div { grid-template-columns: 1fr auto; padding: 10px 9px; border-bottom: 1px dashed rgba(26,26,26,.34); }
 .sv-summary dd { color: #171717; font-size: 13px; }
-.sv-patience { position: absolute; top: 574px; right: 0; left: 0; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; }
-.sv-patience strong { padding: 10px 14px; color: #b8342c; border: 1px solid #b8342c; font-size: 16px; font-weight: 500; }
-.sv-patience .sv-patience-seal { width: 54px; height: 54px; font-size: 13px; }
+.sv-patience {
+  position: absolute;
+  top: 564px;
+  left: 27.2%;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+.sv-patience strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 181px;
+  height: 38px;
+  padding: 0 10px;
+  color: #332725;
+  border: 1px solid #b65349;
+  box-shadow: inset 0 0 0 3px rgba(248,245,237,.96), inset 0 0 0 4px rgba(182,83,73,.7);
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.sv-patience .sv-patience-seal {
+  width: 64px;
+  height: 64px;
+  border-width: 2px;
+  box-shadow: inset 0 0 0 3px rgba(248,245,237,.96), inset 0 0 0 4px rgba(184,52,44,.7);
+  font-size: 20px;
+  transform: translateY(18px) rotate(-7deg);
+}
 .sv-patience-copy { position: absolute; top: 624px; right: 0; left: 0; font-size: 12px; line-height: 1.65; text-align: center; }
 .sv-document--pending .sv-disclaimer { top: 671px; right: 38px; left: 38px; margin: 0; }
 .sv-document--pending .sv-details { top: 697px; right: 36px; left: 36px; margin: 0; }
@@ -235,6 +262,9 @@
   .sv-document { padding-inline: 42px; }
   .sv-document--pending { padding-inline: 42px; }
   .sv-countdown { margin-inline: -42px; }
+  .sv-patience { left: 24%; }
+  .sv-patience strong { width: 166px; font-size: 15px; }
+  .sv-patience .sv-patience-seal { width: 60px; height: 60px; }
 }
 
 @keyframes dday-in {
