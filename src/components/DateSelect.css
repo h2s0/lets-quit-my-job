@@ -1,38 +1,39 @@
 /* ── 인풋 필드 ── */
 .ds-wrapper {
   flex: 1;
+  width: 100%;
+  min-width: 0;
 }
 
 .ds-input {
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1.5px solid #c4a882;
-  padding: 8px 0;
-  font-family: 'Noto Serif KR', serif;
+  border-bottom: 1px solid var(--rule);
+  padding: 6px 0 8px;
   font-size: 14px;
-  color: #2C1810;
+  color: var(--ink);
   outline: none;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: border-color 0.15s;
 }
 
 .ds-input:focus {
-  border-bottom-color: #8b6914;
+  border-bottom: 1.5px solid var(--blue);
 }
 
 .ds-input::placeholder {
-  color: #c4a882;
+  color: var(--ink-faint);
 }
 
 /* ── 달력 팝업 ── */
 .ds-calendar {
-  font-family: 'Noto Serif KR', serif !important;
-  background: #F5F0E4 !important;
-  border: 1.5px solid #4a3728 !important;
-  border-radius: 4px !important;
-  box-shadow: 4px 4px 0 #4a3728 !important;
-  padding: 4px !important;
+  font-family: 'Noto Sans KR', sans-serif !important;
+  background: var(--paper) !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-paper) !important;
+  padding: 8px !important;
 }
 
 .ds-popper {
@@ -41,8 +42,8 @@
 
 /* 헤더 (월/년) */
 .ds-calendar .react-datepicker__header {
-  background: #3b2a1e !important;
-  border-bottom: 2px solid #8b6914 !important;
+  background: var(--paper) !important;
+  border-bottom: 1px solid var(--rule) !important;
   border-radius: 2px 2px 0 0 !important;
   padding: 10px 0 8px !important;
 }
@@ -59,36 +60,35 @@
 /* 월/년 select */
 .ds-calendar .react-datepicker__month-select,
 .ds-calendar .react-datepicker__year-select {
-  background: transparent;
-  border: 1px solid #8b6914;
+  background: var(--paper-soft);
+  border: 1px solid var(--rule);
   border-radius: 2px;
-  color: #F5F0E4;
-  font-family: 'Noto Serif KR', serif;
+  color: var(--ink);
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 13px;
-  padding: 2px 4px;
+  padding: 3px 5px;
   cursor: pointer;
   outline: none;
 }
 
 .ds-calendar .react-datepicker__month-select option,
 .ds-calendar .react-datepicker__year-select option {
-  background: #3b2a1e;
-  color: #F5F0E4;
+  background: var(--paper);
+  color: var(--ink);
 }
 
 /* 요일 헤더 */
 .ds-calendar .react-datepicker__day-name {
-  color: #c4a882 !important;
+  color: var(--ink-faint) !important;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.05em;
   width: 32px !important;
   line-height: 28px !important;
 }
 
 /* 날짜 셀 */
 .ds-calendar .react-datepicker__day {
-  color: #2C1810 !important;
+  color: var(--ink) !important;
   font-size: 13px;
   width: 32px !important;
   line-height: 32px !important;
@@ -98,32 +98,32 @@
 }
 
 .ds-calendar .react-datepicker__day:hover {
-  background: #e8dfc8 !important;
-  color: #3b2a1e !important;
+  background: var(--paper-soft) !important;
+  color: var(--ink) !important;
 }
 
 .ds-calendar .react-datepicker__day--selected {
-  background: #3b2a1e !important;
-  color: #F5F0E4 !important;
+  background: var(--blue) !important;
+  color: #fff !important;
 }
 
 .ds-calendar .react-datepicker__day--selected:hover {
-  background: #2C1810 !important;
+  background: var(--blue-dark) !important;
 }
 
 .ds-calendar .react-datepicker__day--keyboard-selected {
-  background: #c4a882 !important;
-  color: #2C1810 !important;
+  background: #e7efff !important;
+  color: var(--blue-dark) !important;
 }
 
 .ds-calendar .react-datepicker__day--outside-month {
-  color: #c4a882 !important;
+  color: var(--ink-faint) !important;
 }
 
 .ds-calendar .react-datepicker__day--today {
   font-weight: 700;
   text-decoration: underline;
-  text-decoration-color: #8b6914;
+  text-decoration-color: var(--blue);
 }
 
 /* 이전/다음 화살표 */
@@ -132,11 +132,11 @@
 }
 
 .ds-calendar .react-datepicker__navigation-icon::before {
-  border-color: #c4a882 !important;
+  border-color: var(--ink-faint) !important;
 }
 
 .ds-calendar .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
-  border-color: #F5F0E4 !important;
+  border-color: var(--ink) !important;
 }
 
 /* 삼각형 화살표 제거 */
