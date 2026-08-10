@@ -14,27 +14,26 @@
   object-fit: fill;
   opacity: 1;
   filter: saturate(3.2) contrast(1.18);
-  animation: burst-pop 1100ms cubic-bezier(.2,.75,.3,1) infinite;
+  animation: burst-pop 2400ms cubic-bezier(.2,.75,.3,1) infinite;
 }
 
 .money-note,
 .confetti-piece {
   position: absolute;
-  top: 44%;
+  top: 45%;
   left: 50%;
   object-fit: contain;
   opacity: 0;
-  animation: note-firework 2200ms cubic-bezier(.12,.68,.2,1) var(--burst-delay) infinite;
+  animation: note-firework 2400ms linear infinite;
 }
 .money-note {
-  width: 84px;
-  height: 84px;
-  filter: drop-shadow(0 8px 7px rgba(34,39,32,.18));
+  width: var(--note-size);
+  height: var(--note-size);
+  filter: contrast(1.08) saturate(1.05) drop-shadow(0 8px 7px rgba(34,39,32,.18));
 }
-.money-note:nth-of-type(3n) { width: 96px; height: 96px; }
-.money-note:nth-of-type(4n) { width: 72px; height: 72px; }
-.confetti-piece { width: 24px; height: 24px; }
-.confetti-piece:nth-of-type(2n) { width: 19px; height: 19px; }
+.confetti-piece { width: 23px; height: 23px; }
+.confetti-piece:nth-of-type(3n) { width: 34px; height: 34px; }
+.confetti-piece:nth-of-type(5n) { width: 29px; height: 29px; }
 
 @keyframes burst-pop {
   0% { opacity: .58; transform: scale(.97); }
@@ -48,14 +47,17 @@
     opacity: 0;
     transform: translate(-50%, -50%) rotate(0) scale(.12);
   }
-  8% {
-    opacity: .16;
-    transform: translate(calc(-50% + var(--kick-x)), calc(-50% + var(--kick-y))) rotate(0) scale(.58);
+  2% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--kick-x)), calc(-50% + var(--kick-y))) rotate(0) scale(.88);
   }
+  6% { opacity: .25; }
+  18% { opacity: .5; }
   58% {
     opacity: 1;
     transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) rotate(var(--note-rotation)) scale(1.05);
   }
+  88% { opacity: .62; }
   100% {
     opacity: 0;
     transform: translate(calc(-50% + var(--far-x)), calc(-50% + var(--far-y))) rotate(var(--note-rotation)) scale(.78);

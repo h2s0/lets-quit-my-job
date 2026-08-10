@@ -2,15 +2,24 @@ import type { CSSProperties } from 'react';
 import './MoneyRain.css';
 
 const notePaths = [
-  ['-175px', '-300px', '-61px', '-105px', '-210px', '-360px', '-26deg'],
-  ['175px', '-280px', '61px', '-98px', '210px', '-336px', '22deg'],
-  ['-190px', '60px', '-67px', '21px', '-228px', '72px', '-18deg'],
-  ['190px', '90px', '67px', '32px', '228px', '108px', '28deg'],
-  ['-130px', '-340px', '-46px', '-119px', '-156px', '-408px', '-22deg'],
-  ['180px', '-160px', '63px', '-56px', '216px', '-192px', '31deg'],
-  ['-180px', '220px', '-63px', '77px', '-216px', '264px', '-30deg'],
-  ['160px', '320px', '56px', '112px', '192px', '384px', '24deg'],
-  ['0px', '-370px', '0px', '-130px', '0px', '-444px', '18deg'],
+  [9, '70px', '-205px', '-260px', '-72px', '-91px', '-225px', '-286px', '-24deg'],
+  [1, '120px', '-115px', '-310px', '-40px', '-109px', '-127px', '-341px', '-26deg'],
+  [2, '202px', '120px', '-345px', '42px', '-121px', '132px', '-380px', '22deg'],
+  [3, '130px', '135px', '-170px', '47px', '-60px', '149px', '-187px', '18deg'],
+  [9, '75px', '185px', '-135px', '65px', '-47px', '204px', '-149px', '28deg'],
+  [4, '145px', '-140px', '-90px', '-49px', '-32px', '-154px', '-99px', '-18deg'],
+  [5, '95px', '-190px', '-60px', '-67px', '-21px', '-209px', '-66px', '-24deg'],
+  [5, '155px', '157px', '-45px', '55px', '-16px', '173px', '-50px', '18deg'],
+  [9, '105px', '185px', '-15px', '65px', '-5px', '204px', '-17px', '31deg'],
+  [6, '60px', '-125px', '25px', '-44px', '9px', '-138px', '28px', '-30deg'],
+  [6, '55px', '-15px', '65px', '-5px', '23px', '-17px', '72px', '-14deg'],
+  [7, '90px', '120px', '45px', '42px', '16px', '132px', '50px', '24deg'],
+  [9, '70px', '185px', '20px', '65px', '7px', '204px', '22px', '28deg'],
+  [8, '165px', '-120px', '100px', '-42px', '35px', '-132px', '110px', '-22deg'],
+  [7, '145px', '140px', '105px', '49px', '37px', '154px', '116px', '24deg'],
+  [8, '220px', '-165px', '280px', '-58px', '98px', '-182px', '308px', '-24deg'],
+  [9, '190px', '145px', '275px', '51px', '96px', '160px', '303px', '22deg'],
+  [9, '165px', '170px', '320px', '60px', '112px', '187px', '352px', '28deg'],
 ] as const;
 
 const confettiPaths = [
@@ -34,17 +43,15 @@ const confettiPaths = [
   ['0px', '-380px', '0px', '-133px', '0px', '-456px', '180deg'],
 ] as const;
 
-const burstDelays = ['0ms', '-1100ms'] as const;
-
 export default function MoneyRain() {
   return (
     <div className="money-rain" aria-hidden="true">
       <img className="money-burst" src="/severance-burst.png" alt="" />
-      {burstDelays.flatMap((delay, burstIndex) => notePaths.map(([endX, endY, kickX, kickY, farX, farY, rotation], index) => (
+      {notePaths.map(([asset, size, endX, endY, kickX, kickY, farX, farY, rotation], index) => (
         <img
           className="money-note"
-          key={`money-${burstIndex}-${index}`}
-          src={`/money-note-${index + 1}.png`}
+          key={`money-${index}`}
+          src={`/money-note-${asset}.png`}
           alt=""
           style={{
             '--end-x': endX,
@@ -54,14 +61,14 @@ export default function MoneyRain() {
             '--far-x': farX,
             '--far-y': farY,
             '--note-rotation': rotation,
-            '--burst-delay': delay,
+            '--note-size': size,
           } as CSSProperties}
         />
-      )))}
-      {burstDelays.flatMap((delay, burstIndex) => confettiPaths.map(([endX, endY, kickX, kickY, farX, farY, rotation], index) => (
+      ))}
+      {confettiPaths.map(([endX, endY, kickX, kickY, farX, farY, rotation], index) => (
         <img
           className="confetti-piece"
-          key={`confetti-${burstIndex}-${index}`}
+          key={`confetti-${index}`}
           src={`/confetti-piece-${(index % 5) + 1}.png`}
           alt=""
           style={{
@@ -72,10 +79,9 @@ export default function MoneyRain() {
             '--far-x': farX,
             '--far-y': farY,
             '--note-rotation': rotation,
-            '--burst-delay': delay,
           } as CSSProperties}
         />
-      )))}
+      ))}
     </div>
   );
 }

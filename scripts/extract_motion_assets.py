@@ -43,7 +43,9 @@ def crop_note(
     shape_mask = Image.new("L", note.size, 0)
     ImageDraw.Draw(shape_mask).polygon(polygon, fill=255)
     shape_mask = shape_mask.filter(ImageFilter.GaussianBlur(1.4))
-    note.putalpha(ImageChops.multiply(alpha, shape_mask).filter(ImageFilter.GaussianBlur(0.45)))
+    isolated_alpha = ImageChops.multiply(alpha, shape_mask).filter(ImageFilter.GaussianBlur(0.25))
+    isolated_alpha = isolated_alpha.point(lambda value: min(255, int(value * 1.65)))
+    note.putalpha(isolated_alpha)
     note.save(PUBLIC / name)
 
 
@@ -75,7 +77,7 @@ for red, green, blue, _ in burst.getdata():
         and brightness < 253
     )
     gray_note_detail = colorful < 28 and brightness < 205
-    gold_alpha = max(max(0, gold - 7) * 2.15, max(0, 250 - blue) * 5.0)
+    gold_alpha = max(max(0, gold - 3) * 2.75, max(0, 252 - blue) * 5.35)
     color_alpha = max(0, colorful - 24) * 3.1
     alpha = int(min(225, max(gold_alpha, color_alpha)))
     if green_note or gray_note_detail:
