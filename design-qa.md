@@ -22,6 +22,7 @@
 - Severance pixel similarity: 93.99%
 - Pending pixel similarity: 92.49%
 - Latest strict Visual Ralph verdict: 97 / 100 — pass
+- Focused money/confetti fireworks verdict: 96 / 100 — pass
 
 ## Approved functional differences
 
@@ -45,6 +46,8 @@
 - Verified back navigation and 390px document width without horizontal overflow.
 - Verified both calculation disclosures in their closed and open states. Opening either disclosure grows the document to 850px and the complete page to 951px; actions move from y=747/750px to y=850px instead of being overlaid.
 - Browser capture reported no console errors during the eligible and pending disclosure checks.
+- Verified six sequential fireworks frames at 200ms intervals. Two complete radial cohorts are interleaved by 1100ms, so one burst remains active while the next begins.
+- Verified each animated PNG contains one isolated banknote or one isolated confetti piece. All visible elements move through center → kick → edge → offscreen coordinates while opacity changes; no visible center hold, endpoint hold, or all-element blank interval remains.
 - `npm run lint`, `npm run build`, and `git diff --check` passed.
 
 ## Iteration 8 comparison history
@@ -64,5 +67,12 @@
 - Colors and visual tokens: paper, ink, seal red, rules, and action blue remain aligned with the selected references. The live seal is slightly cleaner than the distressed reference print.
 - Image quality and asset fidelity: original extracted paper, burst, banknote, speed-line, and torn-calendar assets remain in use with no new placeholders.
 - Copy and content: the encouragement copy, projection rows, calculation rows, and title strings match the requested state.
+
+## Iteration 9 motion evidence
+
+- Captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-9-firework/qa-money-pop-1.png` through `qa-money-pop-6.png`.
+- Motion contract: nine independent banknotes and eighteen independent confetti pieces launch in every radial direction at once, then continue beyond the viewport while fading.
+- Continuity: a second identical all-direction cohort begins halfway through the 2200ms cycle; the focused Visual Ralph verdict found active motion in every captured frame.
+- Focused verdict: 96 / 100 — pass. The only remaining P3 is that the two cohorts intentionally repeat the same spatial pattern.
 
 final result: passed
