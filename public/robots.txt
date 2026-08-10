@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://quit.heeso.site/sitemap.xml
