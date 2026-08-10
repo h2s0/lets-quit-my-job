@@ -1,35 +1,60 @@
 .money-rain {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.money-burst {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
+  object-fit: fill;
+  opacity: 1;
+  filter: saturate(3.2) contrast(1.18);
+  animation: burst-pulse 1800ms ease-in-out infinite alternate;
 }
 
-.money-coin {
+.money-note {
   position: absolute;
-  top: -10%;
-  animation: fall linear infinite;
+  top: 44%;
+  left: 50%;
+  width: 98px;
+  height: 98px;
+  object-fit: contain;
   opacity: 0;
-  will-change: transform, opacity;
+  filter: drop-shadow(0 8px 7px rgba(34,39,32,.18));
+  animation: note-from-center-out 2440ms cubic-bezier(.12,.55,.22,1) var(--note-delay) infinite;
+}
+.money-note:nth-of-type(3n) { width: 112px; height: 112px; }
+.money-note:nth-of-type(4n) { width: 84px; height: 84px; }
+@keyframes burst-pulse {
+  from { opacity: .72; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1.025); }
 }
 
-@keyframes fall {
+@keyframes note-from-center-out {
   0% {
-    transform: translateY(0) rotate(0deg);
     opacity: 0;
+    transform: translate(-50%, -50%) rotate(0) scale(.22);
   }
-  5% {
+  10% {
     opacity: 1;
+    transform: translate(-50%, -50%) rotate(0) scale(.68);
   }
-  90% {
+  72% {
     opacity: 1;
+    transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) rotate(var(--note-rotation)) scale(1.05);
   }
   100% {
-    transform: translateY(110vh) rotate(var(--rotation, 30deg));
     opacity: 0;
+    transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) rotate(var(--note-rotation)) scale(.86);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .money-burst,
+  .money-note { animation-duration: 1ms; animation-delay: 0ms; }
 }

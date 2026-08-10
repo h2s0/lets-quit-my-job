@@ -1,29 +1,52 @@
-import { useState } from "react";
-import { useLocation, Navigate } from "react-router-dom";
-import NumberFlow from "@number-flow/react";
-import type { FormData } from "../types";
+import { useState } from 'react';
+import NumberFlow from '@number-flow/react';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import type { FormData } from '../types';
 import {
+  calcDays,
   calcSeverance,
   calcSeveranceProjection,
-  isEligible,
   formatMoney,
-} from "../utils/calc";
-import MoneyRain from "../components/MoneyRain";
-import "./SeverancePage.css";
+  isEligible,
+} from '../utils/calc';
+import MoneyRain from '../components/MoneyRain';
+import './SeverancePage.css';
+
+function dotDate(date: string) {
+  return date.replaceAll('-', '.');
+}
 
 export default function SeverancePage() {
   const { state: data } = useLocation() as { state: FormData | null };
+  const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
 
   if (!data) return <Navigate to="/" replace />;
 
   const eligible = isEligible(data.startDate, data.endDate);
+  const workDays = calcDays(data.startDate, data.endDate);
 
   const handleShare = async () => {
-    await navigator.clipboard.writeText(window.location.origin + "/");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(window.location.origin);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      alert('링크를 복사하지 못했습니다. 주소창의 주소를 복사해주세요.');
+    }
   };
+
+  const actions = (
+    <>
+      <nav className="sv-actions" aria-label="결과 화면 이동">
+        <button className="action-secondary" type="button" onClick={() => navigate('/plaque', { state: data })}>이전으로</button>
+        <button className="action-primary" type="button" onClick={() => navigate('/', { replace: true })}>처음부터</button>
+      </nav>
+      <button className="sv-share" type="button" onClick={handleShare}>
+        {copied ? '링크 복사 완료' : '동료에게 공유하기'}
+      </button>
+    </>
+  );
 
   if (!eligible) {
     const { daysLeft, targetDate, amount } = calcSeveranceProjection(
@@ -33,94 +56,99 @@ export default function SeverancePage() {
     );
 
     return (
-      <div className="sv-page">
-        <div className="sv-card">
-          <header className="sv-header">
-            <h1>
-              <span aria-hidden="true">— 퇴 직 금 존 버 계 산 기 —</span>
-              <span className="sr-only">1년 미만 퇴직금 수령 가능일 계산기</span>
-            </h1>
+      <main className="sv-page sv-page--pending">
+        <div className="sv-pending-art-clip" aria-hidden="true">
+          <img className="sv-pending-art" src="/pending-burst-calendars.png" alt="" />
+        </div>
+        <article className="sv-document sv-document--pending">
+          <header className="sv-document-header">
+            <h1>퇴직금 존버 통지서</h1>
+            <div className="sv-double-rule" />
           </header>
 
-          <div className="sv-main">
-            <h2 className="sv-congrats">💪 조금만 더, {data.name} {data.position}!</h2>
+          <dl className="sv-personal">
+            <div><dt>성명</dt><dd>{data.name}</dd></div>
+            <div><dt>소속 회사</dt><dd>{data.company}</dd></div>
+            <div><dt>근무 기간</dt><dd>{dotDate(data.startDate)} ~ {dotDate(data.endDate)}</dd></div>
+          </dl>
 
-            <div className="sv-amount-box sv-amount-box--pending">
-              <h3 className="sv-amount-label">퇴직금 수령까지</h3>
-              <NumberFlow className="sv-amount-number sv-days-number" value={daysLeft} />
-              <div className="sv-amount-unit">일 남음</div>
-            </div>
+          <section className="sv-countdown" aria-labelledby="countdown-label">
+            <img className="sv-calendar sv-calendar--one" src="/pending-calendar-1.png" alt="" aria-hidden="true" />
+            <img className="sv-calendar sv-calendar--two" src="/pending-calendar-2.png" alt="" aria-hidden="true" />
+            <img className="sv-calendar sv-calendar--three" src="/pending-calendar-3.png" alt="" aria-hidden="true" />
+            <p id="countdown-label">퇴직금 수령까지</p>
+            <div className="sv-burst-lines" aria-hidden="true" />
+            <div className="sv-days"><span>D-</span><NumberFlow value={daysLeft} /></div>
+          </section>
 
-            <div className="sv-projection">
-              <div className="sv-projection-row">
-                <span className="sv-projection-label">수령 가능일</span>
-                <span className="sv-projection-value">{targetDate}</span>
-              </div>
-              <div className="sv-projection-row">
-                <span className="sv-projection-label">예상 퇴직금</span>
-                <span className="sv-projection-value sv-projection-amount">
-                  {formatMoney(amount)}원
-                </span>
-              </div>
-              <div className="sv-projection-note">
-                * 현재 월 급여({formatMoney(data.monthlySalary)}원) 기준
-              </div>
-            </div>
+          <dl className="sv-summary">
+            <div><dt>수령 가능일</dt><dd>{dotDate(targetDate)}</dd></div>
+            <div><dt>그때 예상 퇴직금</dt><dd>{formatMoney(amount)}원</dd></div>
+          </dl>
 
-            <div className="sv-info">
-              <span>{data.company}</span>
-              <span>{data.startDate} ~ {data.endDate}</span>
-            </div>
+          <div className="sv-patience">
+            <strong>조금만 더 버티십시오.</strong>
+            <span className="sv-patience-seal" aria-hidden="true">존버</span>
           </div>
 
-          <button className="sv-restart" onClick={handleShare}>
-            {copied ? "링크 복사 완료 ✓" : "동료에게 퇴사 권유하기 →"}
-          </button>
-        </div>
-      </div>
+          <p className="sv-patience-copy">지금의 인내가<br />내일의 통장에 입금됩니다.</p>
+
+          <p className="sv-disclaimer">본 결과는 간편 예상 금액이며, 실제 정산 시 달라질 수 있습니다.</p>
+          <details className="sv-details">
+            <summary>계산 기준 보기</summary>
+            <dl>
+              <div><dt>현재 월 급여</dt><dd>{formatMoney(data.monthlySalary)}원</dd></div>
+              <div><dt>현재 근무일수</dt><dd>{formatMoney(workDays)}일</dd></div>
+              <div><dt>기준</dt><dd>입사일로부터 365일</dd></div>
+            </dl>
+          </details>
+        </article>
+        {actions}
+      </main>
     );
   }
 
   const amount = calcSeverance(data.monthlySalary, data.startDate, data.endDate);
 
   return (
-    <div className="sv-page">
+    <main className="sv-page">
       <MoneyRain />
-
-      <div className="sv-card">
-        <header className="sv-header">
-          <h1>
-            <span aria-hidden="true">— 퇴 직 금 영 수 증 —</span>
-            <span className="sr-only">퇴직금 계산 결과 영수증</span>
-          </h1>
+      <article className="sv-document">
+        <header className="sv-document-header">
+          <h1>퇴직금 명세서</h1>
+          <div className="sv-double-rule" />
         </header>
 
-        <div className="sv-main">
-          <h2 className="sv-congrats">🎉 수고하셨습니다, {data.name} 님!</h2>
+        <dl className="sv-personal">
+          <div><dt>성명</dt><dd>{data.name}</dd></div>
+          <div><dt>소속 회사</dt><dd>{data.company}</dd></div>
+          <div><dt>근무 기간</dt><dd>{dotDate(data.startDate)} ~ {dotDate(data.endDate)}</dd></div>
+        </dl>
 
-          <div className="sv-amount-box">
-            <h3 className="sv-amount-label">최 종 퇴 직 금</h3>
-            <NumberFlow
-              className="sv-amount-number"
-              value={amount}
-              format={{ style: "decimal" }}
-              locales="ko-KR"
-            />
-            <div className="sv-amount-unit">원 ( KRW )</div>
+        <section className="sv-total" aria-labelledby="total-label">
+          <p id="total-label">예상 퇴직금</p>
+          <div className="sv-total-value">
+            <NumberFlow value={amount} format={{ style: 'decimal' }} locales="ko-KR" />
+            <span>원</span>
           </div>
+        </section>
 
-          <div className="sv-info">
-            <span>{data.company}</span>
-            <span>
-              {data.startDate} ~ {data.endDate}
-            </span>
-          </div>
-        </div>
+        <p className="sv-disclaimer">본 명세서는 간편 예상 금액이며, 실제 정산 시 달라질 수 있습니다.</p>
+        <details className="sv-details">
+          <summary>계산 기준 보기</summary>
+          <dl>
+            <div><dt>월 급여</dt><dd>{formatMoney(data.monthlySalary)}원</dd></div>
+            <div><dt>근무일수</dt><dd>{formatMoney(workDays)}일</dd></div>
+            <div><dt>산정 방식</dt><dd>평균임금 × 30일 × 재직연수</dd></div>
+          </dl>
+        </details>
 
-        <button className="sv-restart" onClick={handleShare}>
-          {copied ? "링크 복사 완료 ✓" : "동료에게 퇴사 권유하기 →"}
-        </button>
-      </div>
-    </div>
+        <footer className="sv-confirmation">
+          <time dateTime={data.endDate}>{dotDate(data.endDate)}</time>
+          <div><strong>{data.company}</strong><span className="sv-confirm-seal" aria-hidden="true">확인</span></div>
+        </footer>
+      </article>
+      {actions}
+    </main>
   );
 }
