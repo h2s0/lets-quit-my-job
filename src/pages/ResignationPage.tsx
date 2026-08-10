@@ -6,8 +6,15 @@ import './ResignationPage.css';
 
 const today = new Date().toISOString().slice(0, 10);
 
+function formatKoreanDate(date: string) {
+  const [year, month, day] = date.split('-');
+  return `${year}년 ${month}월 ${day}일`;
+}
+
 export default function ResignationPage() {
   const navigate = useNavigate();
+  const [stamped, setStamped] = useState(false);
+  const [stampRun, setStampRun] = useState(0);
   const [form, setForm] = useState<FormData>({
     company: '',
     team: '',
@@ -19,38 +26,31 @@ export default function ResignationPage() {
     reason: '일신상의 이유로 사직하고자 하오니 허락하여 주시기 바랍니다.',
   });
 
-  const set = (key: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const val = key === 'monthlySalary' ? Number(e.target.value.replace(/[^0-9]/g, '')) : e.target.value;
-    setForm((prev) => ({ ...prev, [key]: val }));
+  const set = (key: keyof FormData) => (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const value = key === 'monthlySalary'
+      ? Number(event.target.value.replace(/[^0-9]/g, ''))
+      : event.target.value;
+    setForm((previous) => ({ ...previous, [key]: value }));
   };
 
-  const toKoreanMoney = (n: number): string => {
-    if (!n || n <= 0) return '';
-    const uk = Math.floor(n / 100_000_000);
-    const man = Math.floor((n % 100_000_000) / 10_000);
-    const rest = n % 10_000;
+  const toKoreanMoney = (amount: number): string => {
+    if (!amount || amount <= 0) return '';
+    const uk = Math.floor(amount / 100_000_000);
+    const man = Math.floor((amount % 100_000_000) / 10_000);
+    const rest = amount % 10_000;
     const parts: string[] = [];
     if (uk > 0) parts.push(`${uk.toLocaleString()}억`);
     if (man > 0) parts.push(`${man.toLocaleString()}만`);
-    if (rest > 0) {
-      const cheon = Math.floor(rest / 1000);
-      const baek = Math.floor((rest % 1000) / 100);
-      const sip = Math.floor((rest % 100) / 10);
-      const il = rest % 10;
-      let s = '';
-      if (cheon) s += `${cheon}천`;
-      if (baek) s += `${baek}백`;
-      if (sip) s += `${sip}십`;
-      if (il) s += `${il}`;
-      parts.push(s);
-    }
-    return parts.join(' ') + '원';
+    if (rest > 0) parts.push(rest.toLocaleString());
+    return `${parts.join(' ')}원`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     if (!form.company || !form.name || !form.monthlySalary || !form.startDate || !form.endDate) {
-      alert('모든 항목을 입력해주세요.');
+      alert('필수 항목을 모두 입력해주세요.');
       return;
     }
     if (new Date(form.startDate) >= new Date(form.endDate)) {
@@ -60,116 +60,112 @@ export default function ResignationPage() {
     navigate('/plaque', { state: form });
   };
 
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStamped(false);
+    setStampRun(0);
+    setForm((previous) => ({ ...previous, name: event.target.value }));
+  };
+
+  const handleStamp = () => {
+    if (!form.name.trim()) {
+      alert('도장을 찍을 이름을 먼저 입력해주세요.');
+      return;
+    }
+    setStamped(false);
+    window.requestAnimationFrame(() => {
+      setStampRun((previous) => previous + 1);
+      setStamped(true);
+    });
+  };
+
   return (
-    <div className="r-page">
-      <form className="r-card" onSubmit={handleSubmit}>
-        <div className="r-header">
-          <div className="r-deco" />
-          <h1 className="r-title">
-            <span aria-hidden="true">사 직 서</span>
-            <span className="sr-only">사직서 작성 및 퇴직금 계산기</span>
-          </h1>
-          <div className="r-deco" />
-        </div>
-        <div className="r-divider" />
+    <main className="r-page">
+      <form className="r-document" onSubmit={handleSubmit}>
+        <header className="r-header">
+          <p className="r-kicker">RESIGNATION LETTER</p>
+          <h1 className="r-title">사 직 서</h1>
+          <div className="r-double-rule" />
+        </header>
 
-        <div className="r-body">
-          <h2 className="sr-only">퇴사 정보 입력</h2>
+        <section className="r-fields" aria-label="사직 정보 입력">
+          <div className="r-table">
+            <label htmlFor="company">소속 회사</label>
+            <input id="company" type="text" placeholder="회사명을 입력하세요" value={form.company} onChange={set('company')} required />
 
-          <div className="r-field">
-            <label className="r-label">소속 회사</label>
-            <input
-              className="r-input"
-              type="text"
-              placeholder="(주) ○○○○"
-              value={form.company}
-              onChange={set('company')}
-            />
+            <label htmlFor="team">소속 팀</label>
+            <input id="team" type="text" placeholder="팀명을 입력하세요" value={form.team} onChange={set('team')} />
+
+            <label htmlFor="position">직급</label>
+            <input id="position" type="text" placeholder="직급" value={form.position} onChange={set('position')} />
+
+            <label htmlFor="name">성명</label>
+            <input id="name" type="text" placeholder="이름" value={form.name} onChange={handleNameChange} required />
           </div>
 
-          <div className="r-row">
-            <div className="r-field">
-              <label className="r-label">소속 팀</label>
-              <input
-                className="r-input"
-                type="text"
-                placeholder="개발팀"
-                value={form.team}
-                onChange={set('team')}
-              />
+          <div className="r-lines">
+            <div className="r-line-field">
+              <label htmlFor="salary">월 급여</label>
+              <div className="r-line-control">
+                <input
+                  id="salary"
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="3,500,000"
+                  value={form.monthlySalary ? form.monthlySalary.toLocaleString() : ''}
+                  onChange={set('monthlySalary')}
+                  required
+                />
+                <span>원</span>
+              </div>
+              {form.monthlySalary > 0 && <small>{toKoreanMoney(form.monthlySalary)}</small>}
             </div>
-            <div className="r-field">
-              <label className="r-label">직 급</label>
-              <input
-                className="r-input"
-                type="text"
-                placeholder="대리"
-                value={form.position}
-                onChange={set('position')}
-              />
+
+            <div className="r-line-field">
+              <span className="r-line-label">입사일자</span>
+              <DateSelect value={form.startDate} onChange={(value) => setForm((previous) => ({ ...previous, startDate: value }))} />
             </div>
-          </div>
 
-          <div className="r-field">
-            <label className="r-label">성 명</label>
-            <input
-              className="r-input"
-              type="text"
-              placeholder="홍 길 동"
-              value={form.name}
-              onChange={set('name')}
-            />
-          </div>
-
-          <div className="r-field">
-            <label className="r-label">최근 월 급여 (원)</label>
-            <input
-              className="r-input"
-              type="text"
-              inputMode="numeric"
-              placeholder="3,500,000"
-              value={form.monthlySalary ? form.monthlySalary.toLocaleString() : ''}
-              onChange={set('monthlySalary')}
-            />
-            {form.monthlySalary > 0 && (
-              <span className="r-salary-hint">{toKoreanMoney(form.monthlySalary)}</span>
-            )}
-          </div>
-
-          <div className="r-field">
-            <label className="r-label">재직 기간</label>
-            <div className="r-period">
-              <DateSelect
-                value={form.startDate}
-                onChange={(val) => setForm((prev) => ({ ...prev, startDate: val }))}
-              />
-              <span className="r-tilde">~</span>
-              <DateSelect
-                value={form.endDate}
-                onChange={(val) => setForm((prev) => ({ ...prev, endDate: val }))}
-              />
+            <div className="r-line-field">
+              <span className="r-line-label">최종근무일</span>
+              <DateSelect value={form.endDate} onChange={(value) => setForm((previous) => ({ ...previous, endDate: value }))} />
             </div>
           </div>
 
-          <div className="r-ruling" />
-
-          <div className="r-field">
-            <label className="r-label">사직 사유</label>
-            <textarea
-              className="r-textarea"
-              rows={4}
-              value={form.reason}
-              onChange={set('reason')}
-            />
+          <div className="r-reason">
+            <label htmlFor="reason">사직 사유</label>
+            <textarea id="reason" rows={4} value={form.reason} onChange={set('reason')} />
           </div>
-        </div>
 
-        <button className="r-btn" type="submit">
-          <span className="stamp-dot" />
-          퇴 사 하 기
-          <span className="stamp-dot" />
-        </button>
+          <p className="r-declaration">
+            본인은 위와 같은 사유로 사직하고자 하오니<br />허락하여 주시기 바랍니다.
+          </p>
+
+          <div className="r-signature">
+            <time dateTime={today}>{formatKoreanDate(today)}</time>
+            <div className="r-applicant">
+              <span>신청인</span>
+              <strong>{form.name || '○ ○ ○'}</strong>
+              <button
+                className={`r-name-seal${stamped ? ' is-stamped' : ''}`}
+                type="button"
+                onClick={handleStamp}
+                aria-label={stamped ? `${form.name} 도장 찍힘, 다시 찍기` : '신청인 도장 찍기'}
+              >
+                <span>{form.name.trim() ? form.name.slice(0, 3) : '도장'}</span>
+              </button>
+              <img
+                key={stampRun}
+                className={`r-stamp-tool${stampRun > 0 ? ' is-running' : ''}`}
+                src="/resignation-stamp.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </section>
+
+        <button className="r-submit" type="submit">사직서 제출하기</button>
       </form>
-    </div>
+    </main>
   );
 }
