@@ -11,8 +11,8 @@
 
 - Browser: headless Chrome against the local Vite app
 - Viewport: 390 × 844 CSS pixels, device scale factor 1
-- Captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-4-final/`
-- Pixel diffs: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-4-final/diff/`
+- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-8-details-flow/`
+- Latest pixel diffs: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-8-details-flow/diff/`
 - Test data: 브릿지웍스 주식회사 / 김민준 / 3,800,000원 and the dates shown in the selected references where the route state permits
 
 ## Final measurements
@@ -21,7 +21,7 @@
 - Plaque pixel similarity: 96.43%
 - Severance pixel similarity: 93.99%
 - Pending pixel similarity: 92.49%
-- Strict Visual Ralph verdict: 94 / 100 — pass
+- Latest strict Visual Ralph verdict: 97 / 100 — pass
 
 ## Approved functional differences
 
@@ -30,7 +30,8 @@
 - Names, company, team, position, dates, tenure, amounts, and D-day are live values rather than baked image text.
 - The applicant seal includes the requested physical stamp impact animation from the right edge.
 - The severance and pending screens are real HTML documents, not screenshots used as UI backgrounds.
-- The severance effect is split into a transparent gold/confetti layer and nine independent banknote assets. Notes travel from the edges toward the viewer/center, then burst back toward the edges.
+- The severance effect is split into a transparent gold/confetti layer and nine independent banknote assets. Notes continuously travel from the center toward the edges without a reverse phase.
+- Result titles use the user-requested unspaced strings `퇴직금명세서` and `퇴직금존버통지서`.
 - The pending effect uses a transparent speed-line/calendar decoration layer over the shared paper texture; its title, rows, D-day, messages, disclosure, and actions remain live HTML.
 
 ## Interaction and runtime checks
@@ -42,6 +43,26 @@
 - Verified the pending decoration is hard-clipped at y=484px, exactly where the summary starts.
 - Replaced typed calendar labels with extracted AUG 15, JUL 31, and SEP 01 torn-calendar assets and removed stray D-day glyph fragments.
 - Verified back navigation and 390px document width without horizontal overflow.
+- Verified both calculation disclosures in their closed and open states. Opening either disclosure grows the document to 850px and the complete page to 951px; actions move from y=747/750px to y=850px instead of being overlaid.
+- Browser capture reported no console errors during the eligible and pending disclosure checks.
 - `npm run lint`, `npm run build`, and `git diff --check` passed.
+
+## Iteration 8 comparison history
+
+- P1 before fix: expanded calculation rows occupied the same absolute area as the confirmation/footer content.
+  - Fix: the document now increases from 747/750px to 850px while open, and the eligible confirmation moves below the expanded 150px calculation block.
+  - Evidence: `severance-open.png` and `pending-open.png`; both full-page captures are 390 × 951px with no overlap.
+- P2 before fix: the pending encouragement box began too far left, used a single bright-red border, and the small seal was vertically centered beside it.
+  - Fix: matched the reference box width and x-position, added the inset print line, changed the copy to dark ink, enlarged the seal, and lowered its impression relative to the box.
+  - Evidence: `pending-closed.png`; strict visual verdict category scores are geometry 98 and typography 96.
+- User override: title tracking and literal word spaces were removed. The rendered titles are `퇴직금명세서` and `퇴직금존버통지서`.
+
+## Latest fidelity surfaces
+
+- Fonts and typography: Noto Serif KR hierarchy retained; result titles render without spaces as requested. Minor natural raster/font differences remain acceptable.
+- Spacing and layout rhythm: closed captures differ from normalized references by approximately 3px (eligible) and 8px (pending); expanded content pushes all later controls downward.
+- Colors and visual tokens: paper, ink, seal red, rules, and action blue remain aligned with the selected references. The live seal is slightly cleaner than the distressed reference print.
+- Image quality and asset fidelity: original extracted paper, burst, banknote, speed-line, and torn-calendar assets remain in use with no new placeholders.
+- Copy and content: the encouragement copy, projection rows, calculation rows, and title strings match the requested state.
 
 final result: passed
