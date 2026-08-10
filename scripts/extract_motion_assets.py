@@ -27,11 +27,35 @@ def paper_alpha(image: Image.Image, keep_dark: bool = True, keep_gold: bool = Tr
     return rgba
 
 
-def crop_note(source: Image.Image, box: tuple[int, int, int, int], name: str) -> None:
+def crop_note(
+    source: Image.Image,
+    box: tuple[int, int, int, int],
+    polygon: list[tuple[int, int]],
+    name: str,
+) -> None:
     note = paper_alpha(source.crop(box), keep_dark=True, keep_gold=False)
-    alpha = note.getchannel("A").filter(ImageFilter.GaussianBlur(0.45))
-    note.putalpha(alpha)
+    cleaned_pixels = []
+    for red, green, blue, alpha in note.getdata():
+        saturated_confetti = max(red, green, blue) - min(red, green, blue) > 70
+        cleaned_pixels.append((red, green, blue, 0 if saturated_confetti else alpha))
+    note.putdata(cleaned_pixels)
+    alpha = note.getchannel("A")
+    shape_mask = Image.new("L", note.size, 0)
+    ImageDraw.Draw(shape_mask).polygon(polygon, fill=255)
+    shape_mask = shape_mask.filter(ImageFilter.GaussianBlur(1.4))
+    note.putalpha(ImageChops.multiply(alpha, shape_mask).filter(ImageFilter.GaussianBlur(0.45)))
     note.save(PUBLIC / name)
+
+
+def crop_confetti(source: Image.Image, box: tuple[int, int, int, int], name: str) -> None:
+    piece = paper_alpha(source.crop(box), keep_dark=False, keep_gold=False)
+    pixels = []
+    for red, green, blue, alpha in piece.getdata():
+        chroma = max(red, green, blue) - min(red, green, blue)
+        pixels.append((red, green, blue, alpha if chroma > 42 else 0))
+    piece.putdata(pixels)
+    piece.putalpha(piece.getchannel("A").filter(ImageFilter.GaussianBlur(0.35)))
+    piece.save(PUBLIC / name)
 
 
 severance = Image.open(PUBLIC / "severance-background-selected.png")
@@ -104,8 +128,30 @@ note_boxes = [
     (0, 1260, 266, 1618),
     (645, 1250, 853, 1535),
 ]
-for index, box in enumerate(note_boxes, start=1):
-    crop_note(severance, box, f"money-note-{index}.png")
+note_polygons = [
+    [(22, 62), (119, 30), (181, 49), (148, 137), (55, 171), (17, 127)],
+    [(0, 112), (139, 16), (202, 0), (235, 64), (174, 211), (24, 236)],
+    [(8, 61), (136, 39), (177, 104), (39, 139)],
+    [(32, 73), (80, 36), (184, 89), (145, 151), (45, 130)],
+    [(0, 106), (38, 81), (104, 145), (82, 194), (10, 164)],
+    [(24, 0), (91, 0), (116, 49), (69, 92), (29, 72)],
+    [(34, 96), (104, 67), (236, 111), (211, 181), (93, 171)],
+    [(0, 77), (94, 0), (239, 151), (139, 244), (0, 171)],
+    [(17, 66), (88, 39), (207, 94), (207, 171), (68, 135)],
+]
+for index, (box, polygon) in enumerate(zip(note_boxes, note_polygons), start=1):
+    crop_note(severance, box, polygon, f"money-note-{index}.png")
+
+confetti_boxes = [
+    (682, 557, 716, 607),
+    (718, 582, 764, 634),
+    (534, 606, 561, 650),
+    (562, 608, 604, 661),
+    (251, 604, 294, 655),
+    (447, 894, 486, 942),
+]
+for index, box in enumerate(confetti_boxes, start=1):
+    crop_confetti(severance, box, f"confetti-piece-{index}.png")
 
 pending = Image.open(PUBLIC / "pending-background-selected.png")
 pending_fx = paper_alpha(pending, keep_dark=True, keep_gold=False)
