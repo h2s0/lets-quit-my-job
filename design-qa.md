@@ -11,7 +11,7 @@
 
 - Browser: headless Chrome against the local Vite app
 - Viewport: 390 × 844 CSS pixels, device scale factor 1
-- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-8-details-flow/`
+- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-10-reference-restored/`
 - Latest pixel diffs: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-8-details-flow/diff/`
 - Test data: 브릿지웍스 주식회사 / 김민준 / 3,800,000원 and the dates shown in the selected references where the route state permits
 
@@ -22,7 +22,7 @@
 - Severance pixel similarity: 93.99%
 - Pending pixel similarity: 92.49%
 - Latest strict Visual Ralph verdict: 97 / 100 — pass
-- Focused money/confetti fireworks verdict: 96 / 100 — pass
+- Focused selected-reference motion verdict: 93 / 100 — pass
 
 ## Approved functional differences
 
@@ -31,7 +31,7 @@
 - Names, company, team, position, dates, tenure, amounts, and D-day are live values rather than baked image text.
 - The applicant seal includes the requested physical stamp impact animation from the right edge.
 - The severance and pending screens are real HTML documents, not screenshots used as UI backgrounds.
-- The severance effect is split into a transparent gold/confetti layer and nine independent banknote assets. Notes continuously travel from the center toward the edges without a reverse phase.
+- The severance effect is split into a transparent gold/confetti layer and nine single-banknote source assets rendered as eighteen independent foreground, middle-ground, and background elements. Notes continuously travel from the center toward the selected reference coordinates and then offscreen without a reverse phase.
 - Result titles use the user-requested unspaced strings `퇴직금명세서` and `퇴직금존버통지서`.
 - The pending effect uses a transparent speed-line/calendar decoration layer over the shared paper texture; its title, rows, D-day, messages, disclosure, and actions remain live HTML.
 
@@ -40,13 +40,13 @@
 - Verified `/`, `/plaque`, and both eligible/ineligible `/severance` states.
 - Verified stamp-ready, impact, and final-impression states.
 - Verified the severance center-arrival motion frame and the final outward-settled frame separately.
-- Replaced the former two-way motion with a center-to-edge-only infinite loop. Nine notes use negative staggered delays so outward movement is continuously visible.
+- Replaced the former two-way motion with one simultaneous 2400ms center-to-edge burst. Eighteen notes and eighteen confetti pieces move independently while distance and opacity change together.
 - Verified the pending decoration is hard-clipped at y=484px, exactly where the summary starts.
 - Replaced typed calendar labels with extracted AUG 15, JUL 31, and SEP 01 torn-calendar assets and removed stray D-day glyph fragments.
 - Verified back navigation and 390px document width without horizontal overflow.
 - Verified both calculation disclosures in their closed and open states. Opening either disclosure grows the document to 850px and the complete page to 951px; actions move from y=747/750px to y=850px instead of being overlaid.
 - Browser capture reported no console errors during the eligible and pending disclosure checks.
-- Verified six sequential fireworks frames at 200ms intervals. Two complete radial cohorts are interleaved by 1100ms, so one burst remains active while the next begins.
+- Verified six sequential reference-aligned burst frames at 200ms intervals. The selected-reference density peaks around frame 3 and the next burst begins immediately in frame 6.
 - Verified each animated PNG contains one isolated banknote or one isolated confetti piece. All visible elements move through center → kick → edge → offscreen coordinates while opacity changes; no visible center hold, endpoint hold, or all-element blank interval remains.
 - `npm run lint`, `npm run build`, and `git diff --check` passed.
 
@@ -68,11 +68,12 @@
 - Image quality and asset fidelity: original extracted paper, burst, banknote, speed-line, and torn-calendar assets remain in use with no new placeholders.
 - Copy and content: the encouragement copy, projection rows, calculation rows, and title strings match the requested state.
 
-## Iteration 9 motion evidence
+## Iteration 10 selected-reference restoration
 
-- Captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-9-firework/qa-money-pop-1.png` through `qa-money-pop-6.png`.
-- Motion contract: nine independent banknotes and eighteen independent confetti pieces launch in every radial direction at once, then continue beyond the viewport while fading.
-- Continuity: a second identical all-direction cohort begins halfway through the 2200ms cycle; the focused Visual Ralph verdict found active motion in every captured frame.
-- Focused verdict: 96 / 100 — pass. The only remaining P3 is that the two cohorts intentionally repeat the same spatial pattern.
+- Exact source: `public/design-references/severance-selected.png`, byte-identical to the approved generated image `exec-62737386-c20d-...png`.
+- Captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-10-reference-restored/qa-money-pop-1.png` through `qa-money-pop-6.png`.
+- The rejected doubled-cohort fireworks treatment was removed. Explicit coordinates and sizes now reproduce the original upper-right, side, amount-adjacent, and lower-corner banknote anchors.
+- The target-density frame uses eighteen independent banknotes, stronger foreground scale and contrast, a brighter gold burst, and varied confetti depth.
+- Focused verdict: 93 / 100 — pass. The earlier P1 banknote scale and position findings and later P2 right-anchor findings are resolved; only a P3 density difference from comparing motion to a static source remains.
 
 final result: passed
