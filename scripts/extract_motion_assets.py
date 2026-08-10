@@ -43,14 +43,54 @@ for red, green, blue, _ in burst.getdata():
     brightness = (red + green + blue) / 3
     gold = max(0, red - blue) + max(0, green - blue)
     colorful = max(red, green, blue) - min(red, green, blue)
-    green_note = green > red * 0.96 and green > blue * 1.08 and brightness < 225
+    green_note = (
+        green >= red * 0.92
+        and green > blue * 1.03
+        and green - red > -8
+        and red - blue < 45
+        and brightness < 253
+    )
+    gray_note_detail = colorful < 28 and brightness < 205
     gold_alpha = max(max(0, gold - 7) * 2.15, max(0, 250 - blue) * 5.0)
     color_alpha = max(0, colorful - 24) * 3.1
     alpha = int(min(225, max(gold_alpha, color_alpha)))
-    if green_note:
+    if green_note or gray_note_detail:
         alpha = 0
     burst_pixels.append((red, green, blue, alpha))
 burst.putdata(burst_pixels)
+# The reference also contains photographed banknotes. They are rendered as
+# independent animated layers, so remove every note-shaped region from the
+# otherwise-static burst to avoid frozen duplicates between animation loops.
+note_erase = Image.new("L", severance.size, 255)
+note_draw = ImageDraw.Draw(note_erase)
+static_note_polygons = [
+    [(548, 0), (741, 0), (761, 130), (594, 244), (553, 204)],
+    [(162, 113), (300, 118), (276, 225), (177, 234), (151, 193)],
+    [(0, 194), (70, 205), (110, 263), (0, 326)],
+    [(660, 357), (802, 345), (842, 467), (693, 489)],
+    [(795, 440), (853, 454), (853, 591), (772, 631), (758, 561)],
+    [(0, 565), (180, 618), (154, 714), (0, 675)],
+    [(785, 486), (853, 475), (853, 637), (768, 640)],
+    [(0, 633), (80, 642), (71, 730), (0, 713)],
+    [(659, 645), (853, 622), (853, 767), (718, 756)],
+    [(0, 728), (144, 742), (130, 883), (0, 890)],
+    [(35, 751), (132, 732), (158, 832), (50, 861)],
+    [(109, 846), (229, 863), (197, 935), (92, 919)],
+    [(283, 865), (414, 847), (421, 929), (302, 947)],
+    [(558, 856), (695, 839), (706, 931), (569, 950)],
+    [(681, 879), (838, 860), (853, 983), (715, 1011)],
+    [(34, 917), (234, 920), (246, 1052), (75, 1075)],
+    [(561, 930), (653, 910), (671, 1001), (575, 1025)],
+    [(699, 951), (853, 958), (853, 1084), (724, 1065)],
+    [(747, 1047), (853, 1064), (853, 1245), (763, 1227)],
+    [(0, 1241), (124, 1228), (246, 1478), (93, 1558), (0, 1461)],
+    [(675, 1273), (853, 1324), (853, 1513), (676, 1448)],
+    [(797, 1660), (853, 1669), (853, 1856), (803, 1856)],
+]
+for polygon in static_note_polygons:
+    note_draw.polygon(polygon, fill=0)
+note_erase = note_erase.filter(ImageFilter.GaussianBlur(4.0))
+burst.putalpha(ImageChops.multiply(burst.getchannel("A"), note_erase))
 burst.save(PUBLIC / "severance-burst.png")
 
 note_boxes = [
@@ -69,6 +109,14 @@ for index, box in enumerate(note_boxes, start=1):
 
 pending = Image.open(PUBLIC / "pending-background-selected.png")
 pending_fx = paper_alpha(pending, keep_dark=True, keep_gold=False)
+pending_alpha = pending_fx.getchannel("A")
+calendar_erase = Image.new("L", pending.size, 255)
+erase_draw = ImageDraw.Draw(calendar_erase)
+erase_draw.polygon([(635, 535), (760, 505), (810, 660), (650, 710), (605, 680)], fill=0)
+erase_draw.polygon([(0, 910), (75, 855), (210, 945), (160, 1085), (0, 1035)], fill=0)
+erase_draw.polygon([(638, 930), (735, 860), (853, 925), (853, 1060), (675, 1090)], fill=0)
+calendar_erase = calendar_erase.filter(ImageFilter.GaussianBlur(2.0))
+pending_fx.putalpha(ImageChops.multiply(pending_alpha, calendar_erase))
 pending_fx.save(PUBLIC / "pending-burst-calendars.png")
 
 pending_reference = Image.open(PUBLIC / "design-references" / "pending-selected.png")
