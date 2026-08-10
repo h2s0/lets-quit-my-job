@@ -3,7 +3,6 @@ import NumberFlow from '@number-flow/react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import type { FormData } from '../types';
 import {
-  calcDays,
   calcSeverance,
   calcSeveranceProjection,
   formatMoney,
@@ -24,8 +23,6 @@ export default function SeverancePage() {
   if (!data) return <Navigate to="/" replace />;
 
   const eligible = isEligible(data.startDate, data.endDate);
-  const workDays = calcDays(data.startDate, data.endDate);
-
   const handleShare = async () => {
     try {
       await navigator.clipboard.writeText(window.location.origin);
@@ -93,15 +90,7 @@ export default function SeverancePage() {
 
           <p className="sv-patience-copy">지금의 인내가<br />내일의 통장에 입금됩니다.</p>
 
-          <p className="sv-disclaimer">본 결과는 간편 예상 금액이며, 실제 정산 시 달라질 수 있습니다.</p>
-          <details className="sv-details">
-            <summary>계산 기준 보기</summary>
-            <dl>
-              <div><dt>현재 월 급여</dt><dd>{formatMoney(data.monthlySalary)}원</dd></div>
-              <div><dt>현재 근무일수</dt><dd>{formatMoney(workDays)}일</dd></div>
-              <div><dt>기준</dt><dd>입사일로부터 365일</dd></div>
-            </dl>
-          </details>
+          <p className="sv-disclaimer">본 결과는 예상 금액이며, 실제 정산 시 변동될 수 있습니다.</p>
         </article>
         {actions}
       </main>
@@ -133,19 +122,16 @@ export default function SeverancePage() {
           </div>
         </section>
 
-        <p className="sv-disclaimer">본 명세서는 간편 예상 금액이며, 실제 정산 시 달라질 수 있습니다.</p>
-        <details className="sv-details">
-          <summary>계산 기준 보기</summary>
-          <dl>
-            <div><dt>월 급여</dt><dd>{formatMoney(data.monthlySalary)}원</dd></div>
-            <div><dt>근무일수</dt><dd>{formatMoney(workDays)}일</dd></div>
-            <div><dt>산정 방식</dt><dd>평균임금 × 30일 × 재직연수</dd></div>
-          </dl>
-        </details>
+        <p className="sv-disclaimer">※ 본 명세서는 예상 퇴직금이며, 정산 시 변동될 수 있습니다.</p>
 
         <footer className="sv-confirmation">
           <time dateTime={data.endDate}>{dotDate(data.endDate)}</time>
-          <div><strong>{data.company}</strong><span className="sv-confirm-seal" aria-hidden="true">확인</span></div>
+          <div>
+            <strong>{data.company}</strong>
+            <span className="sv-confirm-seal" aria-label={`${data.company} 직인`}>
+              <span>{data.company}</span>
+            </span>
+          </div>
         </footer>
       </article>
       {actions}
