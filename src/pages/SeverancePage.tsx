@@ -15,6 +15,11 @@ function dotDate(date: string) {
   return date.replaceAll('-', '.');
 }
 
+function documentDate(date: string) {
+  const [year, month, day] = date.split('-');
+  return `${year}년 ${month}월 ${day}일`;
+}
+
 export default function SeverancePage() {
   const { state: data } = useLocation() as { state: FormData | null };
   const navigate = useNavigate();
@@ -123,12 +128,12 @@ export default function SeverancePage() {
         </section>
 
         <p className="sv-disclaimer">
-          ※ 본 명세서는 예상 퇴직금이며<br />
+          ※ 본 명세서는 예상 퇴직금이며,<br />
           정산 시 변동될 수 있습니다.
         </p>
 
         <footer className="sv-confirmation">
-          <time dateTime={data.endDate}>{dotDate(data.endDate)}</time>
+          <time dateTime={data.endDate}>{documentDate(data.endDate)}</time>
           <div>
             <strong>{data.company}</strong>
             <span className="sv-confirm-seal" aria-label={`${data.company} 직인`}>

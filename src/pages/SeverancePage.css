@@ -117,6 +117,10 @@
   line-height: 1.65;
   text-align: center;
 }
+.sv-document:not(.sv-document--pending) .sv-disclaimer {
+  line-height: 2.05;
+  letter-spacing: .025em;
+}
 
 .sv-confirmation {
   position: absolute;
@@ -130,6 +134,7 @@
   margin: 0;
   font-size: 13px;
 }
+.sv-confirmation time { letter-spacing: .04em; word-spacing: .28em; }
 .sv-confirmation > div { display: flex; align-items: center; gap: 12px; }
 .sv-confirm-seal,
 .sv-patience-seal {
