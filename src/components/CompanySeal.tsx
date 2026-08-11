@@ -2,30 +2,24 @@ import { useEffect, useRef } from 'react';
 import './CompanySeal.css';
 
 const CANVAS_SIZE = 120;
-const INNER_TOP = 21;
-const INNER_HEIGHT = 78;
+const INNER_START = 21;
+const INNER_SIZE = 78;
 
-function splitSealColumns(company: string) {
+function splitSealRows(company: string) {
   const compact = company.replaceAll(' ', '');
+  const sealText = compact.endsWith('주식회사')
+    ? `주식회사${compact.slice(0, -4)}인`
+    : `${compact}인`;
+  const characters = [...sealText];
+  const columnCount = Math.ceil(Math.sqrt(characters.length));
 
-  if (compact.endsWith('주식회사')) {
-    const brand = [...compact.slice(0, -4), '인'];
-    const middleLength = Math.ceil(brand.length / 2);
-
-    return [
-      [...'주식회사'],
-      brand.slice(0, middleLength),
-      brand.slice(middleLength),
-    ];
-  }
-
-  const characters = [...compact, '인'];
-  const columnSize = Math.ceil(characters.length / 3);
-  return [
-    characters.slice(0, columnSize),
-    characters.slice(columnSize, columnSize * 2),
-    characters.slice(columnSize * 2),
-  ];
+  return {
+    columnCount,
+    rows: Array.from(
+      { length: Math.ceil(characters.length / columnCount) },
+      (_, index) => characters.slice(index * columnCount, index * columnCount + columnCount),
+    ),
+  };
 }
 
 function distressInk(context: CanvasRenderingContext2D) {
@@ -76,15 +70,20 @@ export default function CompanySeal({ company }: CompanySealProps) {
       context.textAlign = 'center';
       context.textBaseline = 'middle';
 
-      splitSealColumns(company).forEach((column, columnIndex) => {
-        const x = 89 - columnIndex * 29;
-        const rowHeight = INNER_HEIGHT / column.length;
-        const fontSize = Math.min(27, rowHeight * 1.02);
-        context.font = `800 ${fontSize}px "Noto Sans KR", sans-serif`;
+      const { columnCount, rows } = splitSealRows(company);
+      const cellWidth = INNER_SIZE / columnCount;
+      const cellHeight = INNER_SIZE / rows.length;
+      const fontSize = Math.min(29, cellWidth * 1.15, cellHeight * 0.94);
+      context.font = `800 ${fontSize}px "Noto Sans KR", sans-serif`;
 
-        column.forEach((character, rowIndex) => {
-          const y = INNER_TOP + rowHeight * (rowIndex + 0.5);
-          const angle = (((columnIndex + 1) * 7 + rowIndex * 5) % 5 - 2) * 0.006;
+      rows.forEach((row, rowIndex) => {
+        const rowWidth = row.length * cellWidth;
+        const rowStart = (CANVAS_SIZE - rowWidth) / 2;
+
+        row.forEach((character, columnIndex) => {
+          const x = rowStart + cellWidth * (columnIndex + 0.5);
+          const y = INNER_START + cellHeight * (rowIndex + 0.5);
+          const angle = (((rowIndex + 1) * 7 + columnIndex * 5) % 5 - 2) * 0.006;
           context.save();
           context.translate(x, y);
           context.rotate(angle);
