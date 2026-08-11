@@ -9,6 +9,7 @@ import {
   isEligible,
 } from '../utils/calc';
 import MoneyRain from '../components/MoneyRain';
+import CompanySeal from '../components/CompanySeal';
 import './SeverancePage.css';
 
 function dotDate(date: string) {
@@ -136,10 +137,7 @@ export default function SeverancePage() {
           <time dateTime={data.endDate}>{documentDate(data.endDate)}</time>
           <div>
             <strong>{data.company}</strong>
-            <span className="sv-confirm-seal" aria-label={`${data.company} 직인`}>
-              <img src="/company-seal-ring.png" alt="" aria-hidden="true" />
-              <span>{data.company}</span>
-            </span>
+            <CompanySeal company={data.company} />
           </div>
         </footer>
       </article>

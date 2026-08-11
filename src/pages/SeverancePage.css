@@ -122,7 +122,6 @@
 }
 .sv-confirmation time { letter-spacing: .04em; word-spacing: .28em; }
 .sv-confirmation > div { display: flex; align-items: center; gap: 12px; }
-.sv-confirm-seal,
 .sv-patience-seal {
   display: inline-flex;
   align-items: center;
@@ -136,40 +135,6 @@
   font-size: 11px;
   font-weight: 700;
   transform: rotate(-7deg);
-}
-.sv-confirm-seal {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  border: 0;
-  border-radius: 0;
-  color: #cf392f;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 7.5px;
-  line-height: 1.18;
-  text-align: center;
-  transform: rotate(-5deg);
-  opacity: .92;
-  filter: saturate(.92) contrast(1.05);
-}
-.sv-confirm-seal > img {
-  position: absolute;
-  inset: -4px;
-  width: calc(100% + 8px);
-  height: calc(100% + 8px);
-  object-fit: contain;
-  opacity: .88;
-  filter: contrast(1.2);
-  mix-blend-mode: multiply;
-}
-.sv-confirm-seal > span {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 44px;
-  word-break: keep-all;
-  text-shadow: .25px .25px 0 rgba(145,29,23,.35);
-  transform: scaleX(.9);
 }
 
 .sv-page .sv-actions { margin-top: 0; }
