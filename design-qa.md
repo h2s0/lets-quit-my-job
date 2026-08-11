@@ -11,7 +11,7 @@
 
 - Browser: headless Chrome against the local Vite app
 - Viewport: 390 × 844 CSS pixels, device scale factor 1
-- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-11-confetti-firework/`
+- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-12-compact-footer-seal/`
 - Latest pixel diffs: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-8-details-flow/diff/`
 - Test data: 브릿지웍스 주식회사 / 김민준 / 3,800,000원 and the dates shown in the selected references where the route state permits
 
@@ -22,7 +22,7 @@
 - Severance pixel similarity: 93.99%
 - Pending pixel similarity: 92.49%
 - Latest strict Visual Ralph verdict: 97 / 100 — pass
-- Focused selected-reference motion verdict: 95 / 100 — pass
+- Focused selected-reference motion verdict: 96 / 100 — pass
 
 ## Approved functional differences
 
@@ -84,5 +84,12 @@
 - Rebuilt the confirmation seal as a double-ring company stamp containing the live company name and positioned it directly beside the company name.
 - Captured eight sequential frames at 150ms intervals; all report one live confetti canvas and no console errors.
 - Focused verdict: 95 / 100 — pass, with no blockers.
+
+## Iteration 12 compact footer and ink seal
+
+- Reduced the eligible document from 675px to 650px and closed the excessive space below the amount: disclaimer y=478px, confirmation y=530px, actions y=650px.
+- Replaced the clean CSS-ring seal with a transparent raster double-ring asset carrying irregular vermilion ink wear; the live company name remains real HTML inside the imprint.
+- The pending result remains unchanged at 750px and its action/footer positions are unaffected.
+- Focused verdict: 96 / 100 — pass, with no P1/P2 findings or blockers.
 
 final result: passed
