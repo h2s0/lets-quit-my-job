@@ -11,7 +11,7 @@
 
 - Browser: headless Chrome against the local Vite app
 - Viewport: 390 × 844 CSS pixels, device scale factor 1
-- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-14-total-radiance/`
+- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-15-square-seal-outward-money/`
 - Latest pixel diffs: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-8-details-flow/diff/`
 - Test data: 브릿지웍스 주식회사 / 김민준 / 3,800,000원 and the dates shown in the selected references where the route state permits
 
@@ -22,7 +22,8 @@
 - Severance pixel similarity: 93.99%
 - Pending pixel similarity: 92.49%
 - Latest strict Visual Ralph verdict: 97 / 100 — pass
-- Focused selected-reference motion verdict: 96 / 100 — pass
+- Focused square-seal verdict: 95 / 100 — pass
+- Focused outward-money motion verdict: 97 / 100 — pass
 
 ## Approved functional differences
 
@@ -105,5 +106,14 @@
 - Anchored the burst at 50% / 45% and changed it to a one-way 2400ms pulse: vertical scale 0.93 → 1.14, horizontal scale 0.97 → 1.04, then fade without a reverse phase.
 - The radiance now spans from above `예상 퇴직금` to below the amount while the amount and unit remain fully legible.
 - Focused verdict: 96 / 100 — pass, with no P1/P2 findings or blockers.
+
+## Iteration 15 square company seal and offscreen money
+
+- Product reference: `https://m.dojangmart.net/product/도장마트-만년도장-직인-도장/335/`; the preserved visual crop is `iteration-15-square-seal-outward-money/dojangmart-square-seal-reference.jpg`.
+- Replaced the round seal with a generated transparent square double-border asset based on the product's stamped impression. A live 120px canvas composes `주식회사`, the company name, and `인` as three right-to-left vertical columns.
+- The canvas uses heavy rounded glyph strokes and applies deterministic alpha loss to both border and characters, producing the same uneven red-ink impression on every render.
+- Replaced the former burst asset containing static notes with `severance-radiance.png`, which contains only the white/pale-gold center rays.
+- All eighteen banknotes now normalize their original direction to an offscreen travel distance of `680px + noteSize × 0.35`. Transform remains linear from 4% to 100%; opacity fades only while travel continues, with no endpoint hold, shrink, reverse, or fall.
+- Square-seal verdict: 95 / 100 — pass. Outward-money verdict: 97 / 100 — pass. Neither has P1/P2 findings or blockers.
 
 final result: passed
