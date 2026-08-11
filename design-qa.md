@@ -11,7 +11,7 @@
 
 - Browser: headless Chrome against the local Vite app
 - Viewport: 390 × 844 CSS pixels, device scale factor 1
-- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-12-compact-footer-seal/`
+- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-13-document-copy-date/`
 - Latest pixel diffs: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-8-details-flow/diff/`
 - Test data: 브릿지웍스 주식회사 / 김민준 / 3,800,000원 and the dates shown in the selected references where the route state permits
 
@@ -22,7 +22,7 @@
 - Severance pixel similarity: 93.99%
 - Pending pixel similarity: 92.49%
 - Latest strict Visual Ralph verdict: 97 / 100 — pass
-- Focused selected-reference motion verdict: 96 / 100 — pass
+- Focused selected-reference motion verdict: 98 / 100 — pass
 
 ## Approved functional differences
 
@@ -91,5 +91,12 @@
 - Replaced the clean CSS-ring seal with a transparent raster double-ring asset carrying irregular vermilion ink wear; the live company name remains real HTML inside the imprint.
 - The pending result remains unchanged at 750px and its action/footer positions are unaffected.
 - Focused verdict: 96 / 100 — pass, with no P1/P2 findings or blockers.
+
+## Iteration 13 document copy and date typography
+
+- Matched the selected image's two-line notice exactly: `※ 본 명세서는 예상 퇴직금이며,` followed by `정산 시 변동될 수 있습니다.`.
+- Increased the notice line-height to reproduce the reference's centered two-line rhythm without changing the pending notice.
+- Replaced the eligible confirmation's dotted date with the document-style `YYYY년 MM월 DD일` format and matching word spacing.
+- Focused verdict: 98 / 100 — pass, with no P1/P2 findings or blockers.
 
 final result: passed
