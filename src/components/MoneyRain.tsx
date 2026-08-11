@@ -23,29 +23,43 @@ const notePaths = [
   [9, '165px', '170px', '320px', '60px', '112px', '187px', '352px', '28deg'],
 ] as const;
 
+function outwardPoint(x: string, y: string, size: string) {
+  const directionX = Number.parseFloat(x);
+  const directionY = Number.parseFloat(y);
+  const distance = Math.hypot(directionX, directionY) || 1;
+  const travel = 680 + Number.parseFloat(size) * 0.35;
+
+  return [
+    `${Math.round((directionX / distance) * travel)}px`,
+    `${Math.round((directionY / distance) * travel)}px`,
+  ];
+}
+
 export default function MoneyRain() {
   return (
     <div className="money-rain" aria-hidden="true">
-      <img className="money-burst" src="/severance-burst.png" alt="" />
+      <img className="money-burst" src="/severance-radiance.png" alt="" />
       <ConfettiBurst />
-      {notePaths.map(([asset, size, endX, endY, kickX, kickY, farX, farY, rotation], index) => (
-        <img
-          className="money-note"
-          key={`money-${index}`}
-          src={`/money-note-${asset}.png`}
-          alt=""
-          style={{
-            '--end-x': endX,
-            '--end-y': endY,
-            '--kick-x': kickX,
-            '--kick-y': kickY,
-            '--far-x': farX,
-            '--far-y': farY,
-            '--note-rotation': rotation,
-            '--note-size': size,
-          } as CSSProperties}
-        />
-      ))}
+      {notePaths.map(([asset, size, endX, endY, kickX, kickY, , , rotation], index) => {
+        const [farX, farY] = outwardPoint(endX, endY, size);
+
+        return (
+          <img
+            className="money-note"
+            key={`money-${index}`}
+            src={`/money-note-${asset}.png`}
+            alt=""
+            style={{
+              '--kick-x': kickX,
+              '--kick-y': kickY,
+              '--far-x': farX,
+              '--far-y': farY,
+              '--note-rotation': rotation,
+              '--note-size': size,
+            } as CSSProperties}
+          />
+        );
+      })}
     </div>
   );
 }
