@@ -47,37 +47,28 @@
   border-bottom: 1px solid rgba(35,35,35,.46);
   font-size: clamp(27px, 8.8vw, 38px);
   font-weight: 500;
-  letter-spacing: .3em;
-  text-indent: .3em;
+  letter-spacing: .08em;
+  text-indent: .08em;
 }
 
 .p-rule { display: none; }
 
-.p-engraving h2 {
-  margin-top: 32px;
-  font-size: clamp(19px, 5.8vw, 27px);
-  font-weight: 500;
-  letter-spacing: .12em;
-}
-
-.p-meta {
-  margin-top: 5px;
+.p-recipient {
+  margin-top: 28px;
   font-family: 'Noto Serif KR', serif;
-  font-size: clamp(8px, 2.4vw, 11px);
-  letter-spacing: .04em;
+  font-size: clamp(11px, 3.2vw, 14px);
+  font-weight: 500;
+  letter-spacing: .02em;
 }
 
 .p-message {
-  position: absolute;
-  top: 284px;
-  right: -18px;
-  left: -18px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 0;
+  gap: 4px;
+  width: calc(100% + 36px);
+  margin: 29px -18px 0;
   font-size: clamp(10.5px, 2.85vw, 13px);
-  line-height: 2.1;
+  line-height: 1.95;
   word-break: keep-all;
 }
 .p-message strong { font-weight: 500; }
@@ -87,34 +78,24 @@
   bottom: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding-top: 22px;
+  justify-content: center;
+  gap: 10px;
+  width: calc(100% + 24px);
+  padding-top: 17px;
   border-top: 1px solid rgba(35,35,35,.34);
   font-size: clamp(10px, 2.7vw, 13px);
-  white-space: nowrap;
 }
-.p-company-seal {
+.p-company-copy {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  padding: 4px;
-  overflow: hidden;
-  color: #c94339;
-  border: 2px solid #c94339;
-  border-radius: 50%;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 6px;
-  font-weight: 800;
-  line-height: 1.05;
-  word-break: keep-all;
-  transform: rotate(-7deg);
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1.35;
+  text-align: right;
 }
-.p-company-seal b,
-.p-company-seal small { display: block; max-width: 36px; font: inherit; white-space: nowrap; }
-.p-company-seal b { font-size: 7px; transform: scaleX(.78); }
-.p-company-seal small { font-size: 7px; }
+.p-company-copy strong { font: inherit; font-weight: 500; }
+.p-company-copy span { font-size: .9em; }
+.p-company .company-seal { width: 52px; height: 52px; flex: 0 0 52px; }
 
 .p-actions,
 .sv-actions {

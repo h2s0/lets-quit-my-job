@@ -1,6 +1,7 @@
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import type { FormData } from '../types';
 import { formatTenure, isEligible } from '../utils/calc';
+import CompanySeal from '../components/CompanySeal';
 import './PlaquePage.css';
 
 export default function PlaquePage() {
@@ -19,23 +20,20 @@ export default function PlaquePage() {
           <div className="p-emblem" aria-hidden="true">
             <img src="/plaque-emblem-selected.png" alt="" />
           </div>
-          <h1 id="plaque-title">감 사 패</h1>
+          <h1 id="plaque-title">감사패</h1>
           <div className="p-rule" />
-          <h2>{data.name} 님</h2>
-          {(data.team || data.position) && (
-            <p className="p-meta">{[data.team, data.position].filter(Boolean).join(' · ')}</p>
-          )}
+          <p className="p-recipient">{[data.position, data.name].filter(Boolean).join(' ')}</p>
           <p className="p-message">
             <span>재직해 주신 <strong>{tenure}</strong> 동안<br />수고 많으셨습니다.</span>
             <span>{data.name}님 같은 인재를 만난 것은<br /><strong>{data.company}에게</strong><br />큰 행운이었습니다.</span>
             <span>앞으로의 여정을<br />진심으로 응원합니다.</span>
           </p>
           <div className="p-company">
-            <span>{data.company}</span>
-            <span className="p-company-seal" aria-hidden="true">
-              <b>{data.company.replace(/\s*주식회사$/, '')}</b>
-              {data.company.includes('주식회사') && <small>주식회사</small>}
+            <span className="p-company-copy">
+              <strong>{data.company}</strong>
+              <span>{data.team} 일동</span>
             </span>
+            <CompanySeal company={data.company} />
           </div>
         </div>
       </section>
