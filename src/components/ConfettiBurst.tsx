@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import './ConfettiBurst.css';
 
 const BURST_INTERVAL = 2400;
+const NESTED_BURST_DELAY = BURST_INTERVAL * 0.6;
 
 export default function ConfettiBurst() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -43,11 +44,22 @@ export default function ConfettiBurst() {
       });
     };
 
-    fire();
-    const timer = window.setInterval(fire, BURST_INTERVAL);
+    const nestedTimers = new Set<number>();
+    const runCycle = () => {
+      fire();
+      const nestedTimer = window.setTimeout(() => {
+        nestedTimers.delete(nestedTimer);
+        fire();
+      }, NESTED_BURST_DELAY);
+      nestedTimers.add(nestedTimer);
+    };
+
+    runCycle();
+    const timer = window.setInterval(runCycle, BURST_INTERVAL);
 
     return () => {
       window.clearInterval(timer);
+      nestedTimers.forEach((nestedTimer) => window.clearTimeout(nestedTimer));
       burst.reset();
     };
   }, []);

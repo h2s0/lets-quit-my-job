@@ -23,6 +23,9 @@ const notePaths = [
   [9, '165px', '170px', '320px', '60px', '112px', '187px', '352px', '28deg'],
 ] as const;
 
+const BURST_DURATION = 2400;
+const NESTED_BURST_DELAY = BURST_DURATION * 0.6;
+
 function outwardPoint(x: string, y: string, size: string) {
   const directionX = Number.parseFloat(x);
   const directionY = Number.parseFloat(y);
@@ -38,28 +41,40 @@ function outwardPoint(x: string, y: string, size: string) {
 export default function MoneyRain() {
   return (
     <div className="money-rain" aria-hidden="true">
-      <img className="money-burst" src="/severance-radiance.png" alt="" />
+      {[0, NESTED_BURST_DELAY].map((delay) => (
+        <img
+          className="money-burst"
+          src="/severance-radiance.png"
+          alt=""
+          key={`radiance-${delay}`}
+          style={{ '--burst-delay': `${delay}ms` } as CSSProperties}
+        />
+      ))}
       <ConfettiBurst />
-      {notePaths.map(([asset, size, endX, endY, kickX, kickY, , , rotation], index) => {
-        const [farX, farY] = outwardPoint(endX, endY, size);
+      {[0, NESTED_BURST_DELAY].flatMap((delay, cohort) => (
+        notePaths.map(([asset, size, endX, endY, kickX, kickY, , , rotation], index) => {
+          const renderedSize = `${Math.round(Number.parseFloat(size) * 1.5)}px`;
+          const [farX, farY] = outwardPoint(endX, endY, renderedSize);
 
-        return (
-          <img
-            className="money-note"
-            key={`money-${index}`}
-            src={`/money-note-${asset}.png`}
-            alt=""
-            style={{
-              '--kick-x': kickX,
-              '--kick-y': kickY,
-              '--far-x': farX,
-              '--far-y': farY,
-              '--note-rotation': rotation,
-              '--note-size': size,
-            } as CSSProperties}
-          />
-        );
-      })}
+          return (
+            <img
+              className="money-note"
+              key={`money-${cohort}-${index}`}
+              src={`/money-note-${asset}.png`}
+              alt=""
+              style={{
+                '--kick-x': kickX,
+                '--kick-y': kickY,
+                '--far-x': farX,
+                '--far-y': farY,
+                '--note-rotation': rotation,
+                '--note-size': renderedSize,
+                '--note-delay': `${delay}ms`,
+              } as CSSProperties}
+            />
+          );
+        })
+      ))}
     </div>
   );
 }
