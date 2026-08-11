@@ -32,6 +32,9 @@ interface Props {
   value: string;
   onChange: (val: string) => void;
   placeholder?: string;
+  id?: string;
+  invalid?: boolean;
+  describedBy?: string;
 }
 
 function toDate(val: string): Date | null {
@@ -47,9 +50,19 @@ function toStr(d: Date | null): string {
   return `${d.getFullYear()}-${mm}-${dd}`;
 }
 
-export default function DateSelect({ value, onChange, placeholder = '날짜 선택' }: Props) {
+export default function DateSelect({
+  value,
+  onChange,
+  placeholder = '날짜 선택',
+  id,
+  invalid = false,
+  describedBy,
+}: Props) {
   return (
     <DatePicker
+      id={id}
+      ariaInvalid={invalid ? 'true' : 'false'}
+      ariaDescribedBy={describedBy}
       locale="ko"
       selected={toDate(value)}
       onChange={(d: Date | null) => onChange(toStr(d))}
@@ -58,7 +71,7 @@ export default function DateSelect({ value, onChange, placeholder = '날짜 선�
       showMonthDropdown
       showYearDropdown
       dropdownMode="select"
-      className="ds-input"
+      className={`ds-input${invalid ? ' is-invalid' : ''}`}
       wrapperClassName="ds-wrapper"
       calendarClassName="ds-calendar"
       popperClassName="ds-popper"
