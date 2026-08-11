@@ -122,7 +122,10 @@ export default function SeverancePage() {
           </div>
         </section>
 
-        <p className="sv-disclaimer">※ 본 명세서는 예상 퇴직금이며, 정산 시 변동될 수 있습니다.</p>
+        <p className="sv-disclaimer">
+          ※ 본 명세서는 예상 퇴직금이며<br />
+          정산 시 변동될 수 있습니다.
+        </p>
 
         <footer className="sv-confirmation">
           <time dateTime={data.endDate}>{dotDate(data.endDate)}</time>
