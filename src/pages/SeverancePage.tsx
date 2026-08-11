@@ -129,6 +129,7 @@ export default function SeverancePage() {
           <div>
             <strong>{data.company}</strong>
             <span className="sv-confirm-seal" aria-label={`${data.company} 직인`}>
+              <img src="/company-seal-ring.png" alt="" aria-hidden="true" />
               <span>{data.company}</span>
             </span>
           </div>
