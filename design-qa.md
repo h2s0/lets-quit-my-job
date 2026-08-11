@@ -11,7 +11,7 @@
 
 - Browser: headless Chrome against the local Vite app
 - Viewport: 390 × 844 CSS pixels, device scale factor 1
-- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-13-document-copy-date/`
+- Latest captures: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-14-total-radiance/`
 - Latest pixel diffs: `.omx/artifacts/visual-ralph/lets-quit-flow/iteration-8-details-flow/diff/`
 - Test data: 브릿지웍스 주식회사 / 김민준 / 3,800,000원 and the dates shown in the selected references where the route state permits
 
@@ -22,7 +22,7 @@
 - Severance pixel similarity: 93.99%
 - Pending pixel similarity: 92.49%
 - Latest strict Visual Ralph verdict: 97 / 100 — pass
-- Focused selected-reference motion verdict: 98 / 100 — pass
+- Focused selected-reference motion verdict: 96 / 100 — pass
 
 ## Approved functional differences
 
@@ -98,5 +98,12 @@
 - Increased the notice line-height to reproduce the reference's centered two-line rhythm without changing the pending notice.
 - Replaced the eligible confirmation's dotted date with the document-style `YYYY년 MM월 DD일` format and matching word spacing.
 - Focused verdict: 98 / 100 — pass, with no P1/P2 findings or blockers.
+
+## Iteration 14 total radiance
+
+- Removed the opaque white oval that had washed out the selected image's original white and pale-gold ray layer behind the amount.
+- Anchored the burst at 50% / 45% and changed it to a one-way 2400ms pulse: vertical scale 0.93 → 1.14, horizontal scale 0.97 → 1.04, then fade without a reverse phase.
+- The radiance now spans from above `예상 퇴직금` to below the amount while the amount and unit remain fully legible.
+- Focused verdict: 96 / 100 — pass, with no P1/P2 findings or blockers.
 
 final result: passed
