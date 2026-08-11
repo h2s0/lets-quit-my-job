@@ -98,11 +98,9 @@ export default function ResignationPage() {
       setErrors(nextErrors);
       setFormMessage(invalidDateOrder
         ? '입사일은 최종근무일보다 앞이어야 합니다.'
-        : invalidInputs.length === 0 && nextErrors.stamp
-          ? '신청인 도장을 찍어주세요.'
-          : !nextErrors.stamp
-            ? '붉게 표시된 항목을 입력해주세요.'
-            : '붉게 표시된 항목을 입력하고 신청인 도장을 찍어주세요.');
+        : invalidInputs.length > 0
+          ? '붉게 표시된 항목을 입력해주세요.'
+          : '');
       focusFirstError(nextErrors);
       return;
     }
