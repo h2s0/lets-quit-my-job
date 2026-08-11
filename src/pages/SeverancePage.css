@@ -78,20 +78,6 @@
   padding: 0;
   text-align: center;
 }
-.sv-total::before {
-  content: '';
-  position: absolute;
-  z-index: 0;
-  top: -36px;
-  right: -2px;
-  bottom: -112px;
-  left: -2px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.7);
-  box-shadow: 0 0 42px 30px rgba(255,255,255,.72);
-  filter: blur(17px);
-}
-.sv-total > * { position: relative; z-index: 1; }
 .sv-total p,
 .sv-countdown p { margin-bottom: 17px; font-size: 16px; letter-spacing: .13em; }
 .sv-total p { margin-bottom: 2px; font-size: 17px; font-weight: 500; }
