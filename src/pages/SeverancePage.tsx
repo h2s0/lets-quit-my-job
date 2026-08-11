@@ -46,7 +46,7 @@ export default function SeverancePage() {
         <button className="action-primary" type="button" onClick={() => navigate('/', { replace: true })}>처음부터</button>
       </nav>
       <button className="sv-share" type="button" onClick={handleShare}>
-        {copied ? '링크 복사 완료' : '동료에게 공유하기'}
+        {copied ? '링크 복사 완료' : '동료에게 퇴사 공유하기'}
       </button>
     </>
   );
