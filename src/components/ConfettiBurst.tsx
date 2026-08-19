@@ -45,7 +45,9 @@ export default function ConfettiBurst() {
     };
 
     const nestedTimers = new Set<number>();
-    const runCycle = () => {
+    let intervalId: number;
+
+    const runBurstCycle = () => {
       fire();
       const nestedTimer = window.setTimeout(() => {
         nestedTimers.delete(nestedTimer);
@@ -54,11 +56,21 @@ export default function ConfettiBurst() {
       nestedTimers.add(nestedTimer);
     };
 
-    runCycle();
-    const timer = window.setInterval(runCycle, BURST_INTERVAL);
+    // 계속 터뜨리되, 탭을 안 보고 있는 동안(백그라운드)엔 타이머를 멈춰서
+    // 그 사이엔 배터리를 쓰지 않고, 다시 돌아오면 이어서 돈다.
+    const handleVisibility = () => {
+      window.clearInterval(intervalId);
+      if (document.hidden) return;
+      intervalId = window.setInterval(runBurstCycle, BURST_INTERVAL);
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    runBurstCycle();
+    intervalId = window.setInterval(runBurstCycle, BURST_INTERVAL);
 
     return () => {
-      window.clearInterval(timer);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      window.clearInterval(intervalId);
       nestedTimers.forEach((nestedTimer) => window.clearTimeout(nestedTimer));
       burst.reset();
     };

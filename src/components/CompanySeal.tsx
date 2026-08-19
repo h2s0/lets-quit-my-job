@@ -56,7 +56,7 @@ export default function CompanySeal({ company }: CompanySealProps) {
 
     let cancelled = false;
     const border = new Image();
-    border.src = '/company-seal-square.png';
+    border.src = '/company-seal-square.webp';
 
     const draw = async () => {
       await Promise.all([border.decode(), document.fonts.ready]);

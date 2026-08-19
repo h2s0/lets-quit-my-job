@@ -1,13 +1,18 @@
 .r-page {
-  min-height: 100svh;
+  /* 기준 크기는 390x844 — 이유는 SeverancePage.css의 .sv-page 주석 참고.
+     단, 390px보다 좁은 화면(아이폰 SE 등)에서는 폭을 화면에 맞춰 줄인다 —
+     고정폭을 쓰면 화면 밖으로 밀려나가 오른쪽(혹은 왼쪽)이 잘려 보인다. */
+  width: min(390px, 100%);
+  min-height: 844px;
+  margin: 0 auto;
   overflow-x: hidden;
   color: #171717;
-  background: #faf7ef url('/resignation-paper-selected.png') center / 100% 100% no-repeat;
+  background: #faf7ef url('/resignation-paper-selected.webp') center / 100% 100% no-repeat;
 }
 
 .r-document {
   width: 100%;
-  min-height: 100svh;
+  min-height: 844px;
   margin: 0 auto;
   padding: 80px 29px 0;
   font-family: 'Noto Serif KR', serif;
@@ -243,8 +248,7 @@
 }
 
 @media (min-width: 640px) {
-  .r-page { width: 390px; min-height: 844px; margin: 30px auto; box-shadow: 0 16px 42px rgba(23,28,35,.18); }
-  .r-document { min-height: 844px; }
+  .r-page { margin: 30px auto; box-shadow: 0 16px 42px rgba(23,28,35,.18); }
 }
 
 @media (max-width: 360px) {

@@ -1,25 +1,46 @@
 .p-page {
+  /* 기준 크기는 390x844 — 이유는 SeverancePage.css의 .sv-page 주석 참고.
+     사진(트로피)은 .p-award가 자기 높이(758px)에 맞춰 따로 갖고 있다. 예전엔
+     여기서도 같은 사진을 .p-page 전체 높이(844px+)에 맞춰 늘려 깔았는데,
+     .p-award(758px)와 서로 다른 비율로 늘어나다 보니 이전으로/퇴직금 확인하기
+     버튼이 있는 아래쪽(.p-award 밖) 구간에서 사진이 이상하게 뒤틀려 보였다.
+     그래서 .p-page 자체는 사진 없이 같은 톤의 단색만 깐다.
+     이전으로/퇴직금 확인하기 버튼은 이제 사진 위에 떠 있는 오버레이라 흐름에
+     높이를 더하지 않으므로, 페이지 높이는 .p-award(758px)에 맞춘다. */
   position: relative;
-  min-height: 100svh;
+  width: min(390px, 100%);
+  min-height: 758px;
+  margin: 0 auto;
   overflow: hidden;
   color: #171717;
-  background: #f1efeb url('/plaque-background-selected.png') center top / 100% 100% no-repeat;
+  background: #f1efeb;
   font-family: 'Noto Serif KR', serif;
 }
 
 .p-award {
+  /* 트로피 "사진"은 고정된 그림이라, 사진 속 받침대·명판 위치는 항상 이 박스
+     높이의 정해진 퍼센트 지점에 있다(박스가 늘어나면 사진도 같이 늘어나 늘어난
+     비율만큼 받침대 위치도 같이 밀린다). 그래서 이 박스 높이를 내용에 따라
+     늘어나게 두면(예전 시도) 도장·명판이 사진 속 실제 받침대 자리에서 벗어난다.
+     높이를 758px로 고정하고, 안의 글자 영역(.p-engraving)도 픽셀이 아니라
+     이 758px 기준 퍼센트 좌표로 앉혀야 사진과 항상 정확히 맞는다. 대신 내용이
+     넘칠 수 있는 부분(.p-message)은 아래에서 줄 수를 제한해 절대 이 틀을
+     벗어나지 않게 막는다. */
   position: relative;
   width: 100%;
-  height: calc(100svh - 86px);
+  height: 758px;
   margin: 0;
+  /* .p-page와 동일한 배경을 한 번 더 지정 — 평소엔 .p-page 배경과 겹쳐 보여 시각적 차이가 없지만,
+     "이미지로 저장" 캡처 시 이 섹션만 잘라내도 배경이 함께 담기도록 하는 안전장치 */
+  background: #f1efeb url('/plaque-background-selected.webp') center top / 100% 100% no-repeat;
 }
 
 .p-engraving {
   position: absolute;
   top: 14.8%;
-  right: 22.8%;
+  right: 19%;
   bottom: 16%;
-  left: 22.8%;
+  left: 19%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,60 +51,99 @@
 .p-emblem {
   position: absolute;
   top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   overflow: hidden;
 }
 .p-emblem img { width: 100%; height: 100%; object-fit: cover; }
 
 .p-engraving h1 {
-  margin-top: 92px;
-  width: 100%;
-  padding: 9px 0;
-  border-top: 1px solid rgba(35,35,35,.46);
-  border-bottom: 1px solid rgba(35,35,35,.46);
-  font-size: clamp(27px, 8.8vw, 38px);
+  /* 엠블럼 이미지 바로 아래 있던 위쪽 테두리 선은 없애고, 제목 아래 선만 남기되
+     전체 폭이 아니라 짧게, 진하기도 옅게 낮춰 은은한 장식처럼 보이게 한다. */
+  position: relative;
+  margin-top: 80px;
+  padding: 0 0 15px;
+  font-size: clamp(19px, 6.2vw, 26px);
   font-weight: 500;
   letter-spacing: .08em;
   text-indent: .08em;
+}
+.p-engraving h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 56%;
+  height: 1px;
+  background: rgba(35,35,35,.26);
+  transform: translateX(-50%);
 }
 
 .p-rule { display: none; }
 
 .p-recipient {
-  margin-top: 28px;
+  margin-top: 18px;
   font-family: 'Noto Serif KR', serif;
-  font-size: clamp(11px, 3.2vw, 14px);
+  font-size: clamp(12.5px, 3.6vw, 15.5px);
   font-weight: 500;
   letter-spacing: .02em;
+  word-break: keep-all;
+  /* 직급+이름이 아주 길어도 최대 2줄까지만 — 그 이상은 말줄임표로 자른다. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .p-message {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: calc(100% + 36px);
-  margin: 29px -18px 0;
+  margin-top: 18px;
+  width: calc(100% + 16px);
+  margin-left: -8px;
+  margin-right: -8px;
   font-size: clamp(10.5px, 2.85vw, 13px);
-  line-height: 1.95;
+  line-height: 2.15;
+  letter-spacing: .03em;
+  word-spacing: .15em;
   word-break: keep-all;
+  /* 고정된 사진 틀 안에 항상 맞아야 하므로, 회사명 등이 길어 문장이 늘어나도
+     최대 9줄에서 말줄임표로 잘라 절대 이 영역을 벗어나지 않게 한다. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 9;
+  overflow: hidden;
 }
 .p-message strong { font-weight: 500; }
 
 .p-company {
-  position: absolute;
-  bottom: 0;
+  /* 사진 속 받침대 위치(bottom:0)에 딱 맞춰뒀더니, 본문이 짧을 땐 본문과 명판
+     사이에 큰 빈 공간이 그대로 남았다 — 내용에 자연스럽게 붙는 게 우선이라
+     본문 바로 아래로 옮긴다(사진 받침대와 픽셀 단위로 안 맞을 순 있지만, 빈
+     여백보다 낫다). */
+  position: relative;
+  margin-top: 28px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: calc(100% + 24px);
+  width: calc(100% + 12px);
   padding-top: 17px;
-  border-top: 1px solid rgba(35,35,35,.34);
   font-size: clamp(10px, 2.7vw, 13px);
+}
+.p-company::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 60%;
+  height: 1px;
+  background: rgba(35,35,35,.2);
+  transform: translateX(-50%);
 }
 .p-company-copy {
   display: flex;
@@ -92,8 +152,17 @@
   gap: 3px;
   line-height: 1.35;
   text-align: right;
+  word-break: keep-all;
 }
-.p-company-copy strong { font: inherit; font-weight: 500; }
+.p-company-copy strong {
+  font: inherit;
+  font-weight: 500;
+  /* 회사명이 아주 길면 한 줄로 잘라 말줄임표로 — 명판은 원래도 한 줄짜리 공간이다. */
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .p-company-copy span { font-size: .9em; }
 .p-company .company-seal { width: 52px; height: 52px; flex: 0 0 52px; }
 
@@ -108,21 +177,57 @@
   margin: 0 auto;
 }
 
+/* 감사패는 버튼 아래에 별도 여백 없이, 사진의 빈 하단(받침대 아래 책상 부분) 위에
+   그대로 얹는다 — 그래서 흐름에서 빼서 사진 위에 뜨는 오버레이로 만든다. */
+.p-page .p-actions {
+  position: absolute;
+  right: 0;
+  bottom: 26px;
+  left: 0;
+}
+
 .action-primary,
 .action-secondary {
-  min-height: 58px;
-  padding: 10px 12px;
-  border-radius: 4px;
-  font-size: 15px;
+  min-height: 52px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14.5px;
   font-weight: 500;
   cursor: pointer;
+  box-shadow: 0 8px 18px rgba(23,28,35,.24);
 }
-.action-primary { color: #fff; border: 1px solid #075ff0; background: #075ff0; }
-.action-secondary { color: #075ff0; border: 1px solid #075ff0; background: rgba(255,255,255,.54); }
+.action-primary { color: #fff; border: 0; background: #075ff0; }
+.action-secondary {
+  color: #171717;
+  border: 1px solid rgba(255,255,255,.7);
+  background: rgba(255,255,255,.8);
+  backdrop-filter: blur(3px);
+}
 .action-primary:active,
-.action-secondary:active { transform: scale(.985); }
+.action-secondary:active { transform: scale(.97); }
+
+.p-save {
+  position: absolute;
+  z-index: 6;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: #171717;
+  border: 1px solid rgba(23,23,23,.18);
+  border-radius: 50%;
+  background: rgba(255,255,255,.72);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+}
+.p-save svg { width: 17px; height: 17px; }
+.p-save:disabled { color: rgba(23,23,23,.4); cursor: default; }
+.p-save:active { transform: scale(.94); }
 
 @media (min-width: 640px) {
-  .p-page { width: 390px; min-height: 844px; margin: 30px auto; box-shadow: 0 16px 42px rgba(23,28,35,.18); }
-  .p-award { height: 758px; }
+  .p-page { margin: 30px auto; box-shadow: 0 16px 42px rgba(23,28,35,.18); }
 }

@@ -18,7 +18,6 @@
   transform-origin: 50% 45%;
   animation: burst-pop 2400ms cubic-bezier(.2,.75,.3,1) infinite;
   animation-delay: var(--burst-delay, 0ms);
-  animation-fill-mode: backwards;
 }
 
 .money-note {
@@ -30,6 +29,13 @@
   opacity: 0;
   animation: note-firework 2400ms linear infinite;
   animation-delay: var(--note-delay, 0ms);
+}
+
+/* 탭이 백그라운드로 가 있는 동안엔(안 보고 있을 때) 애니메이션을 멈춰서
+   그동안 배터리를 쓰지 않는다 — 다시 돌아오면 이어서 돈다. */
+.money-rain.is-paused .money-burst,
+.money-rain.is-paused .money-note {
+  animation-play-state: paused;
 }
 .money-note {
   width: var(--note-size);

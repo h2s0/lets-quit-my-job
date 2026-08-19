@@ -41,13 +41,13 @@ export default function SeverancePage() {
 
   const actions = (
     <>
+      <button className="sv-share" type="button" onClick={handleShare}>
+        {copied ? '링크 복사 완료' : '동료에게 퇴사 권유하기'}
+      </button>
       <nav className="sv-actions" aria-label="결과 화면 이동">
         <button className="action-secondary" type="button" onClick={() => navigate('/plaque', { state: data })}>이전으로</button>
         <button className="action-primary" type="button" onClick={() => navigate('/', { replace: true })}>처음부터</button>
       </nav>
-      <button className="sv-share" type="button" onClick={handleShare}>
-        {copied ? '링크 복사 완료' : '동료에게 퇴사 공유하기'}
-      </button>
     </>
   );
 
@@ -61,7 +61,7 @@ export default function SeverancePage() {
     return (
       <main className="sv-page sv-page--pending">
         <div className="sv-pending-art-clip" aria-hidden="true">
-          <img className="sv-pending-art" src="/pending-burst-calendars.png" alt="" />
+          <img className="sv-pending-art" src="/pending-burst-calendars.webp" alt="" />
         </div>
         <article className="sv-document sv-document--pending">
           <header className="sv-document-header">
@@ -76,9 +76,9 @@ export default function SeverancePage() {
           </dl>
 
           <section className="sv-countdown" aria-labelledby="countdown-label">
-            <img className="sv-calendar sv-calendar--one" src="/pending-calendar-1.png" alt="" aria-hidden="true" />
-            <img className="sv-calendar sv-calendar--two" src="/pending-calendar-2.png" alt="" aria-hidden="true" />
-            <img className="sv-calendar sv-calendar--three" src="/pending-calendar-3.png" alt="" aria-hidden="true" />
+            <img className="sv-calendar sv-calendar--one" src="/pending-calendar-1.webp" alt="" aria-hidden="true" />
+            <img className="sv-calendar sv-calendar--two" src="/pending-calendar-2.webp" alt="" aria-hidden="true" />
+            <img className="sv-calendar sv-calendar--three" src="/pending-calendar-3.webp" alt="" aria-hidden="true" />
             <p id="countdown-label">퇴직금 수령까지</p>
             <div className="sv-burst-lines" aria-hidden="true" />
             <div className="sv-days"><span>D-</span><NumberFlow value={daysLeft} /></div>

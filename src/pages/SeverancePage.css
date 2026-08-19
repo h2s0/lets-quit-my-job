@@ -1,15 +1,21 @@
 .sv-page {
+  /* 기준 크기는 390x844 — 배경 이미지(종이 질감)와 그 위에 절대좌표로 얹은 텍스트가
+     같은 기준 크기에 맞춰져 있어서, 폭만 채우고 높이는 100svh에 맡기면 화면 비율이
+     다른 기기(아이폰 SE 등)에서 이미지가 눌리면서 글자가 밀려난다.
+     단, 390px보다 좁은 화면에서는 폭을 화면에 맞춰 줄인다 — 고정폭을 쓰면 화면
+     밖으로 밀려나가 오른쪽(혹은 왼쪽)이 잘려 보인다. */
   position: relative;
-  width: 100%;
-  min-height: 100svh;
+  width: min(390px, 100%);
+  min-height: 844px;
+  margin: 0 auto;
   overflow: hidden;
   color: #171717;
-  background: #f8f5ed url('/resignation-paper-selected.png') center / 100% 100% no-repeat;
+  background: #f8f5ed url('/resignation-paper-selected.webp') center / 100% 100% no-repeat;
   font-family: 'Noto Serif KR', serif;
 }
 
 .sv-page--pending {
-  background: #f8f5ed url('/resignation-paper-selected.png') center / 100% 100% no-repeat;
+  background: #f8f5ed url('/resignation-paper-selected.webp') center / 100% 100% no-repeat;
 }
 
 .sv-pending-art-clip {
@@ -67,7 +73,18 @@
 .sv-personal dt,
 .sv-summary dt { font-size: 12px; letter-spacing: .08em; }
 .sv-personal dd,
-.sv-summary dd { margin: 0; font-size: 12px; font-weight: 500; }
+.sv-summary dd {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  /* 회사/팀/이름이 길면 이 블록이 늘어나 아래 절대좌표 배치된 섹션과 겹칠 수 있어
+     최대 2줄로 제한한다 — 배경 그림에 맞춰 좌표를 고정한 레이아웃이라 자연스러운
+     흐름으로 밀어낼 수 없는 구조라서 길이 자체를 방어적으로 잘라낸다. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
 
 .sv-total {
   position: absolute;
@@ -137,20 +154,27 @@
   transform: rotate(-7deg);
 }
 
-.sv-page .sv-actions { margin-top: 0; }
+.sv-page .sv-actions { margin-top: 10px; }
+/* 링크 밑줄 하나짜리 텍스트로 있던 걸, 위쪽 강조 자리로 옮기면서 다른 버튼들과
+   같은 무게감의 버튼으로 다시 그렸다(폰트도 sans로 튀던 것 제거 — 페이지 기본
+   serif를 그대로 물려받는다). */
 .sv-share {
   position: relative;
   z-index: 4;
   display: block;
-  margin: 13px auto 0;
-  padding: 6px 7px;
-  color: #171717;
-  border: 0;
-  border-bottom: 1px solid #171717;
-  background: transparent;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 12px;
+  width: calc(100% - 58px);
+  min-height: 52px;
+  margin: 0 auto;
+  padding: 10px 14px;
+  color: #1a1a1a;
+  border: 1px solid rgba(26,26,26,.4);
+  border-radius: 12px;
+  background: rgba(26,26,26,.045);
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
 }
+.sv-share:active { transform: scale(.985); }
 
 /* 1년 미만 */
 .sv-document--pending { height: 750px; padding: 0 49px; }
@@ -237,7 +261,7 @@
 .sv-document--pending + .sv-actions { margin-top: 0; }
 
 @media (min-width: 640px) {
-  .sv-page { width: 390px; min-height: 844px; margin: 30px auto; box-shadow: 0 16px 42px rgba(23,28,35,.18); }
+  .sv-page { margin: 30px auto; box-shadow: 0 16px 42px rgba(23,28,35,.18); }
 }
 
 @media (max-width: 360px) {

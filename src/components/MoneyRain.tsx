@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import type { CSSProperties } from 'react';
 import ConfettiBurst from './ConfettiBurst';
 import './MoneyRain.css';
@@ -39,12 +40,20 @@ function outwardPoint(x: string, y: string, size: string) {
 }
 
 export default function MoneyRain() {
+  const [paused, setPaused] = useState(document.hidden);
+
+  useEffect(() => {
+    const handleVisibility = () => setPaused(document.hidden);
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
+
   return (
-    <div className="money-rain" aria-hidden="true">
+    <div className={`money-rain${paused ? ' is-paused' : ''}`} aria-hidden="true">
       {[0, NESTED_BURST_DELAY].map((delay) => (
         <img
           className="money-burst"
-          src="/severance-radiance.png"
+          src="/severance-radiance.webp"
           alt=""
           key={`radiance-${delay}`}
           style={{ '--burst-delay': `${delay}ms` } as CSSProperties}
@@ -60,7 +69,7 @@ export default function MoneyRain() {
             <img
               className="money-note"
               key={`money-${cohort}-${index}`}
-              src={`/money-note-${asset}.png`}
+              src={`/money-note-${asset}.webp`}
               alt=""
               style={{
                 '--kick-x': kickX,
