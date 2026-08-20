@@ -229,12 +229,12 @@ export default function ResignationPage() {
                 aria-label={stamped ? `${form.name} 도장 찍힘, 다시 찍기` : '신청인 도장 찍기'}
                 aria-describedby={errors.stamp ? 'stamp-validation-message' : undefined}
               >
-                <span>{form.name.trim() ? form.name.slice(0, 3) : '도장'}</span>
+                <span>{form.name.trim() ? form.name.slice(0, 6) : '도장'}</span>
               </button>
               <img
                 key={stampRun}
                 className={`r-stamp-tool${stampRun > 0 ? ' is-running' : ''}`}
-                src="/resignation-stamp.png"
+                src="/resignation-stamp.webp"
                 alt=""
                 aria-hidden="true"
               />
