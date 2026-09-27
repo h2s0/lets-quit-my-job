@@ -1,10 +1,13 @@
-export function formatDotDate(date: string): string {
-  return date.replaceAll('-', '.');
-}
+type formatType = 'dot' | 'korean';
 
-export function formatKoreanDate(date: string): string {
+export function formatDate(date: string, format: formatType = 'dot'): string {
+  if (!date) return '';
   const [year, month, day] = date.split('-');
-  return `${year}년 ${month}월 ${day}일`;
+  if (format === 'korean') {
+    return `${year}년 ${month}월 ${day}일`;
+  } else {
+    return date.replaceAll('-', '.');
+  }
 }
 
 export function parseDate(date: string): Date | null {
