@@ -1,5 +1,6 @@
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { formatDateValue, parseDate } from '@/utils/date';
+import { inputClassName } from '@/components/ui';
 import 'react-datepicker/dist/react-datepicker.css';
 import '@/components/DateSelect.css';
 
@@ -59,7 +60,12 @@ export default function DateSelect({
       showMonthDropdown
       showYearDropdown
       dropdownMode="select"
-      className={`ds-input${invalid ? ' is-invalid' : ''}`}
+      className={inputClassName({
+        variant: 'document',
+        inputSize: 'sm',
+        invalid,
+        className: 'ds-input font-serif',
+      })}
       wrapperClassName="ds-wrapper"
       calendarClassName="ds-calendar"
       popperClassName="ds-popper"

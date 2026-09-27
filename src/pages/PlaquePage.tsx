@@ -5,6 +5,7 @@ import type { FormData } from '@/types';
 import { isEligible } from '@/utils/calc';
 import { formatTenure } from '@/utils/date';
 import CompanySeal from '@/components/CompanySeal';
+import { Button, Typography } from '@/components/ui';
 import '@/pages/PlaquePage.css';
 
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
@@ -57,21 +58,21 @@ export default function PlaquePage() {
           <div className="p-emblem" aria-hidden="true">
             <img src="/plaque-emblem-selected.webp" alt="" />
           </div>
-          <h1 id="plaque-title">감사패</h1>
+          <Typography as="h1" id="plaque-title" variant="heading-md" serif>감사패</Typography>
           <div className="p-rule" />
-          <p className="p-recipient">{[data.position, data.name].filter(Boolean).join(' ')}</p>
-          <p className="p-message">
-            재직해 주신 <strong>{tenure}</strong> 동안<br />
+          <Typography variant="body-sm" serif className="p-recipient">{[data.position, data.name].filter(Boolean).join(' ')}</Typography>
+          <Typography variant="body-sm" serif leading="loose" className="p-message">
+            재직해 주신 <Typography as="strong" variant="body-sm" serif>{tenure}</Typography> 동안<br />
             수고 많으셨습니다.<br />
             {data.name}님 같은 인재를 만난 것은<br />
-            <strong>{data.company}</strong>에게 큰 행운이었습니다.<br />
+            <Typography as="strong" variant="body-sm" serif>{data.company}</Typography>에게 큰 행운이었습니다.<br />
             앞으로의 여정을<br />
             진심으로 응원합니다.
-          </p>
+          </Typography>
           <div className="p-company">
             <span className="p-company-copy">
-              <strong>{data.company}</strong>
-              <span>{data.team} 일동</span>
+              <Typography as="strong" variant="caption" serif>{data.company}</Typography>
+              <Typography as="span" variant="caption" serif>{data.team} 일동</Typography>
             </span>
             <CompanySeal company={data.company} />
           </div>
@@ -79,18 +80,19 @@ export default function PlaquePage() {
       </section>
 
       <nav className="p-actions" aria-label="감사패 단계 이동">
-        <button className="action-secondary" type="button" onClick={() => navigate('/')}>이전으로</button>
-        <button
-          className="action-primary"
-          type="button"
+        <Button variant="secondary" onClick={() => navigate('/')}>이전으로</Button>
+        <Button
           onClick={() => navigate('/severance', { state: data })}
         >
           {eligible ? '퇴직금 확인하기' : '존버 D-day 확인하기'}
-        </button>
+        </Button>
       </nav>
-      <button
+      <Button
         className="p-save"
-        type="button"
+        variant="ghost"
+        size="sm"
+        shape="full"
+        iconOnly
         onClick={handleSaveImage}
         disabled={saving}
         aria-label={saving ? '감사패 이미지 저장 중' : '감사패 이미지로 저장'}
@@ -100,7 +102,7 @@ export default function PlaquePage() {
           <polyline points="7 10 12 15 17 10" />
           <line x1="12" y1="15" x2="12" y2="3" />
         </svg>
-      </button>
+      </Button>
     </main>
   );
 }

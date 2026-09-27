@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { FormData } from '@/types';
 import DateSelect from '@/components/DateSelect';
-import { formatKoreanDate } from '@/utils/date';
+import { Button, Input, Textarea, Typography } from '@/components/ui';
+import { formatDate } from '@/utils/date';
 import { formatKoreanMoney } from '@/utils/money';
 import '@/pages/ResignationPage.css';
 
@@ -122,47 +123,49 @@ export default function ResignationPage() {
       <form className="r-document" onSubmit={handleSubmit} noValidate>
         <header className="r-header">
           <p className="r-kicker">RESIGNATION LETTER</p>
-          <h1 className="r-title">사 직 서</h1>
+          <Typography as="h1" variant="heading-lg" serif className="r-title">사 직 서</Typography>
           <div className="r-double-rule" />
         </header>
 
         <section className="r-fields" aria-label="사직 정보 입력">
           <div className="r-table">
-            <label htmlFor="company">소속 회사</label>
-            <input className={errors.company ? 'is-invalid' : ''} id="company" type="text" placeholder="회사명을 입력하세요" value={form.company} onChange={set('company')} aria-invalid={Boolean(errors.company)} aria-describedby={errors.company ? 'form-validation-message' : undefined} required />
+            <Typography as="label" variant="caption" serif htmlFor="company">소속 회사</Typography>
+            <Input variant="table" inputSize="sm" invalid={Boolean(errors.company)} id="company" type="text" placeholder="회사명을 입력하세요" value={form.company} onChange={set('company')} aria-describedby={errors.company ? 'form-validation-message' : undefined} required />
 
-            <label htmlFor="team">소속 팀</label>
-            <input className={errors.team ? 'is-invalid' : ''} id="team" type="text" placeholder="팀명을 입력하세요" value={form.team} onChange={set('team')} aria-invalid={Boolean(errors.team)} aria-describedby={errors.team ? 'form-validation-message' : undefined} required />
+            <Typography as="label" variant="caption" serif htmlFor="team">소속 팀</Typography>
+            <Input variant="table" inputSize="sm" invalid={Boolean(errors.team)} id="team" type="text" placeholder="팀명을 입력하세요" value={form.team} onChange={set('team')} aria-describedby={errors.team ? 'form-validation-message' : undefined} required />
 
-            <label htmlFor="position">직급</label>
-            <input className={errors.position ? 'is-invalid' : ''} id="position" type="text" placeholder="직급" value={form.position} onChange={set('position')} aria-invalid={Boolean(errors.position)} aria-describedby={errors.position ? 'form-validation-message' : undefined} required />
+            <Typography as="label" variant="caption" serif htmlFor="position">직급</Typography>
+            <Input variant="table" inputSize="sm" invalid={Boolean(errors.position)} id="position" type="text" placeholder="직급" value={form.position} onChange={set('position')} aria-describedby={errors.position ? 'form-validation-message' : undefined} required />
 
-            <label htmlFor="name">성명</label>
-            <input className={errors.name ? 'is-invalid' : ''} id="name" type="text" placeholder="이름" value={form.name} onChange={handleNameChange} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? 'form-validation-message' : undefined} required />
+            <Typography as="label" variant="caption" serif htmlFor="name">성명</Typography>
+            <Input variant="table" inputSize="sm" invalid={Boolean(errors.name)} id="name" type="text" placeholder="이름" value={form.name} onChange={handleNameChange} aria-describedby={errors.name ? 'form-validation-message' : undefined} required />
           </div>
 
           <div className="r-lines">
             <div className={`r-line-field${errors.monthlySalary ? ' is-invalid' : ''}`}>
-              <label htmlFor="salary">월 급여</label>
+              <Typography as="label" variant="body-sm" serif tone={errors.monthlySalary ? 'danger' : 'primary'} htmlFor="salary">월 급여</Typography>
               <div className="r-line-control">
-                <input
+                <Input
                   id="salary"
                   type="text"
+                  variant="document"
+                  inputSize="sm"
+                  invalid={Boolean(errors.monthlySalary)}
                   inputMode="numeric"
                   placeholder="3,500,000"
                   value={form.monthlySalary ? form.monthlySalary.toLocaleString() : ''}
                   onChange={set('monthlySalary')}
-                  aria-invalid={Boolean(errors.monthlySalary)}
                   aria-describedby={errors.monthlySalary ? 'form-validation-message' : undefined}
                   required
                 />
-                <span>원</span>
+                <Typography as="span" variant="caption" serif>원</Typography>
               </div>
-              {form.monthlySalary > 0 && <small>{formatKoreanMoney(form.monthlySalary)}</small>}
+              {form.monthlySalary > 0 && <Typography as="small" variant="caption">{formatKoreanMoney(form.monthlySalary)}</Typography>}
             </div>
 
             <div className={`r-line-field${errors.startDate ? ' is-invalid' : ''}`}>
-              <label className="r-line-label" htmlFor="start-date">입사일자</label>
+              <Typography as="label" variant="body-sm" serif tone={errors.startDate ? 'danger' : 'primary'} className="r-line-label" htmlFor="start-date">입사일자</Typography>
               <DateSelect
                 id="start-date"
                 value={form.startDate}
@@ -177,7 +180,7 @@ export default function ResignationPage() {
             </div>
 
             <div className={`r-line-field${errors.endDate ? ' is-invalid' : ''}`}>
-              <label className="r-line-label" htmlFor="end-date">최종근무일</label>
+              <Typography as="label" variant="body-sm" serif tone={errors.endDate ? 'danger' : 'primary'} className="r-line-label" htmlFor="end-date">최종근무일</Typography>
               <DateSelect
                 id="end-date"
                 value={form.endDate}
@@ -193,19 +196,19 @@ export default function ResignationPage() {
           </div>
 
           <div className="r-reason">
-            <label htmlFor="reason">사직 사유</label>
-            <textarea id="reason" rows={4} value={form.reason} onChange={set('reason')} />
+            <Typography as="label" variant="body-sm" serif htmlFor="reason">사직 사유</Typography>
+            <Textarea variant="document" id="reason" rows={4} value={form.reason} onChange={set('reason')} />
           </div>
 
-          <p className="r-declaration">
+          <Typography variant="body-sm" serif leading="loose" className="r-declaration">
             본인은 위와 같은 사유로 사직하고자 하오니<br />허락하여 주시기 바랍니다.
-          </p>
+          </Typography>
 
           <div className="r-signature">
-            <time dateTime={today}>{formatKoreanDate(today)}</time>
+            <Typography as="time" variant="body-sm" serif dateTime={today}>{formatDate(today, 'korean')}</Typography>
             <div className={`r-applicant${errors.stamp ? ' is-invalid' : ''}`}>
-              <span>신청인</span>
-              <strong>{form.name || '○ ○ ○'}</strong>
+              <Typography as="span" variant="body-sm" serif>신청인</Typography>
+              <Typography as="strong" variant="heading-sm" serif>{form.name || '○ ○ ○'}</Typography>
               <button
                 className={`r-name-seal${stamped ? ' is-stamped' : ''}`}
                 id="applicant-seal"
@@ -214,7 +217,7 @@ export default function ResignationPage() {
                 aria-label={stamped ? `${form.name} 도장 찍힘, 다시 찍기` : '신청인 도장 찍기'}
                 aria-describedby={errors.stamp ? 'stamp-validation-message' : undefined}
               >
-                <span>{form.name.trim() ? form.name.slice(0, 6) : '도장'}</span>
+                <Typography as="span" variant="caption" serif>{form.name.trim() ? form.name.slice(0, 6) : '도장'}</Typography>
               </button>
               <img
                 key={stampRun}
@@ -224,12 +227,12 @@ export default function ResignationPage() {
                 aria-hidden="true"
               />
             </div>
-            {errors.stamp && <small className="r-stamp-error" id="stamp-validation-message">신청인 도장을 찍어주세요.</small>}
+            {errors.stamp && <Typography as="small" variant="caption" tone="danger" className="r-stamp-error" id="stamp-validation-message">신청인 도장을 찍어주세요.</Typography>}
           </div>
         </section>
 
-        {formMessage && <p className="r-form-error" id="form-validation-message" role="alert">{formMessage}</p>}
-        <button className="r-submit" type="submit">사직서 제출하기</button>
+        {formMessage && <Typography variant="caption" tone="danger" className="r-form-error" id="form-validation-message" role="alert">{formMessage}</Typography>}
+        <Button className="r-submit" type="submit" size="lg" shape="square" fullWidth>사직서 제출하기</Button>
       </form>
     </main>
   );

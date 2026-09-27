@@ -6,8 +6,7 @@
   min-height: 844px;
   margin: 0 auto;
   overflow-x: hidden;
-  color: #171717;
-  background: #faf7ef url('/resignation-paper-selected.webp') center / 100% 100% no-repeat;
+  background: var(--color-paper) url('/resignation-paper-selected.webp') center / 100% 100% no-repeat;
 }
 
 .r-document {
@@ -15,99 +14,66 @@
   min-height: 844px;
   margin: 0 auto;
   padding: 80px 29px 0;
-  font-family: 'Noto Serif KR', serif;
+  font-family: var(--font-serif);
 }
 
 .r-header { text-align: center; }
 .r-kicker { display: none; }
 .r-title {
-  font-size: clamp(34px, 10vw, 46px);
-  font-weight: 500;
   letter-spacing: .38em;
   text-indent: .38em;
 }
 .r-double-rule {
   height: 5px;
   margin: 12px 0 12px;
-  border-top: 2px solid #171717;
-  border-bottom: 1px solid #171717;
+  border-top: 2px solid var(--color-text-primary);
+  border-bottom: 1px solid var(--color-text-primary);
 }
 
 .r-table {
   display: grid;
   grid-template-columns: 75px 1fr 58px 1fr;
-  border-top: 1px solid rgba(23,23,23,.68);
-  border-left: 1px solid rgba(23,23,23,.68);
+  border-top: 1px solid var(--color-document-rule);
+  border-left: 1px solid var(--color-document-rule);
 }
 .r-table label,
 .r-table input {
   min-width: 0;
   min-height: 39px;
-  border: 0;
-  border-right: 1px solid rgba(23,23,23,.68);
-  border-bottom: 1px solid rgba(23,23,23,.68);
+  border-right: 1px solid var(--color-document-rule);
+  border-bottom: 1px solid var(--color-document-rule);
 }
 .r-table label {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
-  font-size: 12.5px;
   letter-spacing: .06em;
 }
 .r-table input {
   width: 100%;
-  padding: 6px 14px;
-  color: #171717;
-  background: transparent;
-  outline: 0;
-  font-size: 13.5px;
 }
 .r-table label:nth-of-type(1) + input,
 .r-table label:nth-of-type(2) + input { grid-column: span 3; }
-.r-table input:focus { box-shadow: inset 0 -1px #444; }
-.r-table input.is-invalid,
-.r-line-field.is-invalid {
-  background: rgba(181,52,43,.08);
-  box-shadow: inset 0 0 0 1px rgba(181,52,43,.72);
-}
-.r-table input.is-invalid::placeholder,
-.r-line-field.is-invalid .ds-input::placeholder { color: #a52d25; }
-.r-line-field.is-invalid .r-line-label,
-.r-line-field.is-invalid > label { color: #a52d25; }
-
 .r-lines { margin-top: 27px; }
 .r-line-field {
   display: grid;
   grid-template-columns: 83px 1fr;
   align-items: center;
   min-height: 32px;
-  border-bottom: 1px solid rgba(23,23,23,.48);
 }
 .r-line-field > label,
-.r-line-label { font-size: 13px; letter-spacing: .1em; }
+.r-line-label { letter-spacing: .1em; }
 .r-line-control { display: flex; align-items: center; }
 .r-line-control input {
   width: 100%;
-  padding: 5px 4px;
-  color: #171717;
-  border: 0;
-  background: transparent;
-  outline: 0;
-  font-family: 'Noto Serif KR', serif;
-  font-size: 15px;
 }
-.r-line-control span { font-size: 12px; }
 .r-line-field small { display: none; }
 .r-line-field .ds-wrapper { width: 100%; }
 .r-line-field .ds-input {
-  padding: 6px 4px;
-  border: 0;
-  font-family: 'Noto Serif KR', serif;
-  font-size: 14px;
+  font-family: var(--font-serif);
   letter-spacing: .09em;
 }
-.r-line-field .ds-input:focus { border: 0; }
 
 .r-reason { position: relative; margin-top: 20px; }
 .r-reason label {
@@ -115,28 +81,19 @@
   z-index: 1;
   top: 7px;
   left: 6px;
-  font-size: 13px;
   letter-spacing: .08em;
 }
 .r-reason textarea {
   width: 100%;
   height: 128px;
   padding: 6px 5px 5px 88px;
-  color: #171717;
-  border: 0;
-  border-radius: 0;
-  outline: 0;
-  resize: none;
-  background: repeating-linear-gradient(transparent 0 28px, rgba(23,23,23,.32) 28.5px 29px);
-  font-family: 'Noto Serif KR', serif;
-  font-size: 13px;
+  background: repeating-linear-gradient(transparent 0 28px, var(--color-document-rule-muted) 28.5px 29px);
+  font-family: var(--font-serif);
   line-height: 29px;
 }
 
 .r-declaration {
   margin: 50px 0 22px;
-  font-size: 14px;
-  line-height: 2.15;
   text-align: center;
 }
 .r-signature {
@@ -145,7 +102,7 @@
   align-items: center;
   gap: 18px;
 }
-.r-signature time { font-size: 13px; letter-spacing: .09em; }
+.r-signature time { letter-spacing: .09em; }
 .r-applicant {
   position: relative;
   display: grid;
@@ -156,9 +113,7 @@
 }
 .r-applicant strong {
   padding: 5px 15px;
-  border-bottom: 1px solid #555;
-  font-size: 19px;
-  font-weight: 500;
+  border-bottom: 1px solid var(--color-text-secondary);
   text-align: center;
 }
 .r-name-seal {
@@ -168,30 +123,24 @@
   width: 42px;
   height: 42px;
   padding: 5px;
-  color: #aaa8a2;
-  border: 2px dashed #aaa8a2;
+  color: var(--color-text-muted);
+  border: 2px dashed var(--color-text-muted);
   border-radius: 50%;
   background: transparent;
-  font-family: 'Noto Serif KR', serif;
-  font-size: 10px;
-  font-weight: 700;
+  font-family: var(--font-serif);
   line-height: 1.05;
   word-break: break-all;
   transform: rotate(-7deg);
 }
 .r-name-seal.is-stamped { animation: seal-impression 260ms 420ms ease-out both; }
 .r-applicant.is-invalid .r-name-seal {
-  color: #a52d25;
-  border-color: #a52d25;
-  background: rgba(181,52,43,.08);
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  background: var(--color-danger-muted);
   animation: invalid-shake 320ms ease-out;
 }
 .r-stamp-error {
   margin-top: -10px;
-  color: #a52d25;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
 }
 .r-stamp-tool {
   position: absolute;
@@ -201,7 +150,7 @@
   width: 108px;
   pointer-events: none;
   transform-origin: 50% 92%;
-  filter: drop-shadow(0 10px 8px rgba(31,20,16,.26));
+  filter: drop-shadow(var(--shadow-stamp));
   opacity: 0;
   visibility: hidden;
 }
@@ -209,22 +158,10 @@
 
 .r-submit {
   width: calc(100% + 58px);
-  min-height: 56px;
   margin: 14px -29px 0;
-  color: #fff;
-  border: 0;
-  border-radius: 0;
-  background: #075ff0;
-  font-size: 17px;
-  font-weight: 700;
 }
 .r-form-error {
   margin: 10px 0 -4px;
-  color: #a52d25;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.5;
   text-align: center;
 }
 
@@ -238,8 +175,8 @@
 }
 @keyframes seal-impression {
   0% { color: transparent; border-color: transparent; transform: rotate(-7deg) scale(1.28); }
-  55% { color: #b5342b; border-color: #b5342b; transform: rotate(-7deg) scale(.9); }
-  100% { color: #b5342b; border: 2px solid #b5342b; box-shadow: inset 0 0 0 2px rgba(181,52,43,.14); transform: rotate(-7deg); }
+  55% { color: var(--color-danger); border-color: var(--color-danger); transform: rotate(-7deg) scale(.9); }
+  100% { color: var(--color-danger); border: 2px solid var(--color-danger); box-shadow: inset 0 0 0 2px var(--color-danger-muted); transform: rotate(-7deg); }
 }
 @keyframes invalid-shake {
   0%, 100% { transform: rotate(-7deg) translateX(0); }
@@ -248,7 +185,7 @@
 }
 
 @media (min-width: 640px) {
-  .r-page { margin: 30px auto; box-shadow: 0 16px 42px rgba(23,28,35,.18); }
+  .r-page { margin: 30px auto; box-shadow: var(--shadow-paper); }
 }
 
 @media (max-width: 360px) {
@@ -259,5 +196,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .r-stamp-tool { display: none; }
-  .r-name-seal.is-stamped { color: #b5342b; border: 2px solid #b5342b; animation: none; }
+  .r-name-seal.is-stamped { color: var(--color-danger); border: 2px solid var(--color-danger); animation: none; }
 }

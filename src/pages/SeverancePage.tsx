@@ -7,10 +7,11 @@ import {
   calcSeveranceProjection,
   isEligible,
 } from '@/utils/calc';
-import { formatDotDate, formatKoreanDate } from '@/utils/date';
+import { formatDate } from '@/utils/date';
 import { formatMoney } from '@/utils/money';
 import MoneyRain from '@/components/MoneyRain';
 import CompanySeal from '@/components/CompanySeal';
+import { Button, Typography } from '@/components/ui';
 import '@/pages/SeverancePage.css';
 
 export default function SeverancePage() {
@@ -33,12 +34,12 @@ export default function SeverancePage() {
 
   const actions = (
     <>
-      <button className="sv-share" type="button" onClick={handleShare}>
+      <Button className="sv-share" variant="outline" fullWidth onClick={handleShare}>
         {copied ? '링크 복사 완료' : '동료에게 퇴사 권유하기'}
-      </button>
+      </Button>
       <nav className="sv-actions" aria-label="결과 화면 이동">
-        <button className="action-secondary" type="button" onClick={() => navigate('/plaque', { state: data })}>이전으로</button>
-        <button className="action-primary" type="button" onClick={() => navigate('/', { replace: true })}>처음부터</button>
+        <Button variant="secondary" onClick={() => navigate('/plaque', { state: data })}>이전으로</Button>
+        <Button onClick={() => navigate('/', { replace: true })}>처음부터</Button>
       </nav>
     </>
   );
@@ -57,38 +58,38 @@ export default function SeverancePage() {
         </div>
         <article className="sv-document sv-document--pending">
           <header className="sv-document-header">
-            <h1>퇴직금존버통지서</h1>
+            <Typography as="h1" variant="heading-lg" serif>퇴직금존버통지서</Typography>
             <div className="sv-double-rule" />
           </header>
 
           <dl className="sv-personal">
-            <div><dt>성명</dt><dd>{data.name}</dd></div>
-            <div><dt>소속 회사</dt><dd>{data.company}</dd></div>
-            <div><dt>근무 기간</dt><dd>{formatDotDate(data.startDate)} ~ {formatDotDate(data.endDate)}</dd></div>
+            <div><Typography as="dt" variant="caption" serif>성명</Typography><Typography as="dd" variant="caption" serif>{data.name}</Typography></div>
+            <div><Typography as="dt" variant="caption" serif>소속 회사</Typography><Typography as="dd" variant="caption" serif>{data.company}</Typography></div>
+            <div><Typography as="dt" variant="caption" serif>근무 기간</Typography><Typography as="dd" variant="caption" serif>{formatDate(data.startDate)} ~ {formatDate(data.endDate)}</Typography></div>
           </dl>
 
           <section className="sv-countdown" aria-labelledby="countdown-label">
             <img className="sv-calendar sv-calendar--one" src="/pending-calendar-1.webp" alt="" aria-hidden="true" />
             <img className="sv-calendar sv-calendar--two" src="/pending-calendar-2.webp" alt="" aria-hidden="true" />
             <img className="sv-calendar sv-calendar--three" src="/pending-calendar-3.webp" alt="" aria-hidden="true" />
-            <p id="countdown-label">퇴직금 수령까지</p>
+            <Typography id="countdown-label" variant="body-lg" serif>퇴직금 수령까지</Typography>
             <div className="sv-burst-lines" aria-hidden="true" />
-            <div className="sv-days"><span>D-</span><NumberFlow value={daysLeft} /></div>
+            <Typography as="div" variant="display" serif className="sv-days"><span>D-</span><NumberFlow value={daysLeft} /></Typography>
           </section>
 
           <dl className="sv-summary">
-            <div><dt>수령 가능일</dt><dd>{formatDotDate(targetDate)}</dd></div>
-            <div><dt>그때 예상 퇴직금</dt><dd>{formatMoney(amount)}원</dd></div>
+            <div><Typography as="dt" variant="caption" serif>수령 가능일</Typography><Typography as="dd" variant="body-sm" serif>{formatDate(targetDate)}</Typography></div>
+            <div><Typography as="dt" variant="caption" serif>그때 예상 퇴직금</Typography><Typography as="dd" variant="body-sm" serif>{formatMoney(amount)}원</Typography></div>
           </dl>
 
           <div className="sv-patience">
-            <strong>조금만 더 버티십시오.</strong>
-            <span className="sv-patience-seal" aria-hidden="true">존버</span>
+            <Typography as="strong" variant="body-lg" serif>조금만 더 버티십시오.</Typography>
+            <Typography as="span" variant="heading-sm" serif className="sv-patience-seal" aria-hidden="true">존버</Typography>
           </div>
 
-          <p className="sv-patience-copy">지금의 인내가<br />내일의 통장에 입금됩니다.</p>
+          <Typography variant="caption" serif className="sv-patience-copy">지금의 인내가<br />내일의 통장에 입금됩니다.</Typography>
 
-          <p className="sv-disclaimer">본 결과는 예상 금액이며, 실제 정산 시 변동될 수 있습니다.</p>
+          <Typography variant="caption" serif leading="relaxed" className="sv-disclaimer">본 결과는 예상 금액이며, 실제 정산 시 변동될 수 있습니다.</Typography>
         </article>
         {actions}
       </main>
@@ -102,33 +103,33 @@ export default function SeverancePage() {
       <MoneyRain />
       <article className="sv-document">
         <header className="sv-document-header">
-          <h1>퇴직금명세서</h1>
+          <Typography as="h1" variant="heading-lg" serif>퇴직금명세서</Typography>
           <div className="sv-double-rule" />
         </header>
 
         <dl className="sv-personal">
-          <div><dt>성명</dt><dd>{data.name}</dd></div>
-          <div><dt>소속 회사</dt><dd>{data.company}</dd></div>
-          <div><dt>근무 기간</dt><dd>{formatDotDate(data.startDate)} ~ {formatDotDate(data.endDate)}</dd></div>
+          <div><Typography as="dt" variant="caption" serif>성명</Typography><Typography as="dd" variant="caption" serif>{data.name}</Typography></div>
+          <div><Typography as="dt" variant="caption" serif>소속 회사</Typography><Typography as="dd" variant="caption" serif>{data.company}</Typography></div>
+          <div><Typography as="dt" variant="caption" serif>근무 기간</Typography><Typography as="dd" variant="caption" serif>{formatDate(data.startDate)} ~ {formatDate(data.endDate)}</Typography></div>
         </dl>
 
         <section className="sv-total" aria-labelledby="total-label">
-          <p id="total-label">예상 퇴직금</p>
-          <div className="sv-total-value">
+          <Typography id="total-label" variant="body-lg" serif>예상 퇴직금</Typography>
+          <Typography as="div" variant="display" serif className="sv-total-value">
             <NumberFlow value={amount} format={{ style: 'decimal' }} locales="ko-KR" />
-            <span>원</span>
-          </div>
+            <Typography as="span" variant="heading-md" serif>원</Typography>
+          </Typography>
         </section>
 
-        <p className="sv-disclaimer">
+        <Typography variant="caption" serif leading="loose" className="sv-disclaimer">
           ※ 본 명세서는 예상 퇴직금이며,<br />
           정산 시 변동될 수 있습니다.
-        </p>
+        </Typography>
 
         <footer className="sv-confirmation">
-          <time dateTime={data.endDate}>{formatKoreanDate(data.endDate)}</time>
+          <Typography as="time" variant="body-sm" serif dateTime={data.endDate}>{formatDate(data.endDate, 'korean')}</Typography>
           <div>
-            <strong>{data.company}</strong>
+            <Typography as="strong" variant="body-sm" serif>{data.company}</Typography>
             <CompanySeal company={data.company} />
           </div>
         </footer>

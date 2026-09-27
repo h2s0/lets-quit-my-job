@@ -52,18 +52,6 @@
   --shadow-stamp: 0 10px 8px rgb(31 20 16 / 26%);
 }
 
-/* 기존 화면이 공통 UI로 교체되는 동안 사용하는 호환 별칭 */
-:root {
-  --paper: var(--color-surface);
-  --paper-soft: var(--color-surface-muted);
-  --rule: var(--color-border);
-  --ink: var(--color-text-primary);
-  --ink-faint: var(--color-text-muted);
-  --blue: var(--color-primary);
-  --blue-dark: var(--color-primary-hover);
-  --radius: var(--radius-sm);
-}
-
 @layer base {
   body {
     @apply overflow-x-hidden bg-surface font-sans text-text-primary antialiased;
