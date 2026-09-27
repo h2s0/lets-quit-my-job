@@ -5,21 +5,13 @@ import type { FormData } from '../types';
 import {
   calcSeverance,
   calcSeveranceProjection,
-  formatMoney,
   isEligible,
 } from '../utils/calc';
+import { formatDotDate, formatKoreanDate } from '../utils/date';
+import { formatMoney } from '../utils/money';
 import MoneyRain from '../components/MoneyRain';
 import CompanySeal from '../components/CompanySeal';
 import './SeverancePage.css';
-
-function dotDate(date: string) {
-  return date.replaceAll('-', '.');
-}
-
-function documentDate(date: string) {
-  const [year, month, day] = date.split('-');
-  return `${year}년 ${month}월 ${day}일`;
-}
 
 export default function SeverancePage() {
   const { state: data } = useLocation() as { state: FormData | null };
@@ -72,7 +64,7 @@ export default function SeverancePage() {
           <dl className="sv-personal">
             <div><dt>성명</dt><dd>{data.name}</dd></div>
             <div><dt>소속 회사</dt><dd>{data.company}</dd></div>
-            <div><dt>근무 기간</dt><dd>{dotDate(data.startDate)} ~ {dotDate(data.endDate)}</dd></div>
+            <div><dt>근무 기간</dt><dd>{formatDotDate(data.startDate)} ~ {formatDotDate(data.endDate)}</dd></div>
           </dl>
 
           <section className="sv-countdown" aria-labelledby="countdown-label">
@@ -85,7 +77,7 @@ export default function SeverancePage() {
           </section>
 
           <dl className="sv-summary">
-            <div><dt>수령 가능일</dt><dd>{dotDate(targetDate)}</dd></div>
+            <div><dt>수령 가능일</dt><dd>{formatDotDate(targetDate)}</dd></div>
             <div><dt>그때 예상 퇴직금</dt><dd>{formatMoney(amount)}원</dd></div>
           </dl>
 
@@ -117,7 +109,7 @@ export default function SeverancePage() {
         <dl className="sv-personal">
           <div><dt>성명</dt><dd>{data.name}</dd></div>
           <div><dt>소속 회사</dt><dd>{data.company}</dd></div>
-          <div><dt>근무 기간</dt><dd>{dotDate(data.startDate)} ~ {dotDate(data.endDate)}</dd></div>
+          <div><dt>근무 기간</dt><dd>{formatDotDate(data.startDate)} ~ {formatDotDate(data.endDate)}</dd></div>
         </dl>
 
         <section className="sv-total" aria-labelledby="total-label">
@@ -134,7 +126,7 @@ export default function SeverancePage() {
         </p>
 
         <footer className="sv-confirmation">
-          <time dateTime={data.endDate}>{documentDate(data.endDate)}</time>
+          <time dateTime={data.endDate}>{formatKoreanDate(data.endDate)}</time>
           <div>
             <strong>{data.company}</strong>
             <CompanySeal company={data.company} />

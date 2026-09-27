@@ -1,4 +1,5 @@
 import DatePicker, { registerLocale } from 'react-datepicker';
+import { formatDateValue, parseDate } from '../utils/date';
 import 'react-datepicker/dist/react-datepicker.css';
 import './DateSelect.css';
 
@@ -37,19 +38,6 @@ interface Props {
   describedBy?: string;
 }
 
-function toDate(val: string): Date | null {
-  if (!val) return null;
-  const d = new Date(val + 'T00:00:00');
-  return isNaN(d.getTime()) ? null : d;
-}
-
-function toStr(d: Date | null): string {
-  if (!d) return '';
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  return `${d.getFullYear()}-${mm}-${dd}`;
-}
-
 export default function DateSelect({
   value,
   onChange,
@@ -64,8 +52,8 @@ export default function DateSelect({
       ariaInvalid={invalid ? 'true' : 'false'}
       ariaDescribedBy={describedBy}
       locale="ko"
-      selected={toDate(value)}
-      onChange={(d: Date | null) => onChange(toStr(d))}
+      selected={parseDate(value)}
+      onChange={(date: Date | null) => onChange(formatDateValue(date))}
       dateFormat="yyyy. MM. dd"
       placeholderText={placeholder}
       showMonthDropdown

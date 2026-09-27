@@ -2,7 +2,8 @@ import { useRef, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { toPng } from 'html-to-image';
 import type { FormData } from '../types';
-import { formatTenure, isEligible } from '../utils/calc';
+import { isEligible } from '../utils/calc';
+import { formatTenure } from '../utils/date';
 import CompanySeal from '../components/CompanySeal';
 import './PlaquePage.css';
 

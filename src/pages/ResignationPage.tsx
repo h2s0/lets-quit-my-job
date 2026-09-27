@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { FormData } from '../types';
 import DateSelect from '../components/DateSelect';
+import { formatKoreanDate } from '../utils/date';
+import { formatKoreanMoney } from '../utils/money';
 import './ResignationPage.css';
 
 const today = new Date().toISOString().slice(0, 10);
@@ -9,11 +11,6 @@ const today = new Date().toISOString().slice(0, 10);
 type RequiredField = 'company' | 'team' | 'position' | 'name' | 'monthlySalary' | 'startDate' | 'endDate';
 type ValidationField = RequiredField | 'stamp';
 type ValidationErrors = Partial<Record<ValidationField, true>>;
-
-function formatKoreanDate(date: string) {
-  const [year, month, day] = date.split('-');
-  return `${year}년 ${month}월 ${day}일`;
-}
 
 export default function ResignationPage() {
   const navigate = useNavigate();
@@ -60,18 +57,6 @@ export default function ResignationPage() {
     };
 
     if (first) window.requestAnimationFrame(() => document.getElementById(ids[first])?.focus());
-  };
-
-  const toKoreanMoney = (amount: number): string => {
-    if (!amount || amount <= 0) return '';
-    const uk = Math.floor(amount / 100_000_000);
-    const man = Math.floor((amount % 100_000_000) / 10_000);
-    const rest = amount % 10_000;
-    const parts: string[] = [];
-    if (uk > 0) parts.push(`${uk.toLocaleString()}억`);
-    if (man > 0) parts.push(`${man.toLocaleString()}만`);
-    if (rest > 0) parts.push(rest.toLocaleString());
-    return `${parts.join(' ')}원`;
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -173,7 +158,7 @@ export default function ResignationPage() {
                 />
                 <span>원</span>
               </div>
-              {form.monthlySalary > 0 && <small>{toKoreanMoney(form.monthlySalary)}</small>}
+              {form.monthlySalary > 0 && <small>{formatKoreanMoney(form.monthlySalary)}</small>}
             </div>
 
             <div className={`r-line-field${errors.startDate ? ' is-invalid' : ''}`}>
