@@ -1,4 +1,3 @@
-export { ActionGroup } from '@/components/ui/ActionGroup';
 export { Badge } from '@/components/ui/Badge';
 export { Button } from '@/components/ui/Button';
 export { DocumentFrame } from '@/components/ui/DocumentFrame';

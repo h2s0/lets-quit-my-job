@@ -11,7 +11,7 @@ import { formatDate } from '@/utils/date';
 import { formatMoney } from '@/utils/money';
 import MoneyRain from '@/components/MoneyRain';
 import CompanySeal from '@/components/CompanySeal';
-import { ActionGroup, Button, DocumentFrame, Typography } from '@/components/ui';
+import { Button, DocumentFrame, Typography } from '@/components/ui';
 import '@/pages/SeverancePage.css';
 
 export default function SeverancePage() {
@@ -37,10 +37,10 @@ export default function SeverancePage() {
       <Button className="sv-share" variant="outline" fullWidth onClick={handleShare}>
         {copied ? '링크 복사 완료' : '동료에게 퇴사 권유하기'}
       </Button>
-      <ActionGroup className="relative mt-2" aria-label="결과 화면 이동">
+      <nav className="relative z-10 mx-7 mt-2 grid grid-cols-2 gap-3" aria-label="결과 화면 이동">
         <Button variant="secondary" onClick={() => navigate('/plaque', { state: data })}>이전으로</Button>
         <Button onClick={() => navigate('/', { replace: true })}>처음부터</Button>
-      </ActionGroup>
+      </nav>
     </>
   );
 

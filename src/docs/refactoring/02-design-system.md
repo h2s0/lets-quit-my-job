@@ -119,12 +119,6 @@ Tailwind의 4px 기반 기본 스케일을 사용한다. 일반 UI에서는 주�
 - 모바일에서는 화면 너비에 맞춰 축소하고 데스크톱에서는 문서 여백과 그림자를 적용한다.
 - 페이지별 최소 높이와 배경 이미지는 각 페이지 CSS에 유지한다.
 
-### ActionGroup
-
-- 문서 하단의 2열 내비게이션 레이아웃을 제공한다.
-- 공통 문서 gutter와 버튼 간격을 관리한다.
-- 페이지별 absolute 배치나 위쪽 여백은 `className`으로 전달한다.
-
 ### Button
 
 - Variant: `primary`, `secondary`, `outline`, `ghost`
@@ -219,7 +213,6 @@ Tailwind의 4px 기반 기본 스케일을 사용한다. 일반 UI에서는 주�
 | `.sv-share` | `Button`의 `outline` |
 | `.p-save` | `Button`의 `ghost`, `iconOnly`, `full` |
 | `.r-page`, `.p-page`, `.sv-page`의 공통 프레임 | `DocumentFrame` |
-| `.p-actions`, `.sv-actions` | `ActionGroup` |
 | `.r-table input` | `Input`의 `table`, `sm` |
 | `.r-line-control input` | `Input`의 `document`, `sm` |
 | `.r-reason textarea` | `Textarea`의 `document` |
