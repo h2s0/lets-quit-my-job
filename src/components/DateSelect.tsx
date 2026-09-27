@@ -1,7 +1,7 @@
 import DatePicker, { registerLocale } from 'react-datepicker';
-import { formatDateValue, parseDate } from '../utils/date';
+import { formatDateValue, parseDate } from '@/utils/date';
 import 'react-datepicker/dist/react-datepicker.css';
-import './DateSelect.css';
+import '@/components/DateSelect.css';
 
 // 한국어 locale 직접 정의 (date-fns 의존성 없이)
 registerLocale('ko', {

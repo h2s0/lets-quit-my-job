@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { FormData } from '../types';
-import DateSelect from '../components/DateSelect';
-import { formatKoreanDate } from '../utils/date';
-import { formatKoreanMoney } from '../utils/money';
-import './ResignationPage.css';
+import type { FormData } from '@/types';
+import DateSelect from '@/components/DateSelect';
+import { formatKoreanDate } from '@/utils/date';
+import { formatKoreanMoney } from '@/utils/money';
+import '@/pages/ResignationPage.css';
 
 const today = new Date().toISOString().slice(0, 10);
 

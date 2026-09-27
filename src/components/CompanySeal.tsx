@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import './CompanySeal.css';
+import '@/components/CompanySeal.css';
 
 const CANVAS_SIZE = 120;
 const INNER_START = 21;

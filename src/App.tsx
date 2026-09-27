@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import ResignationPage from './pages/ResignationPage';
-import PlaquePage from './pages/PlaquePage';
-import SeverancePage from './pages/SeverancePage';
+import ResignationPage from '@/pages/ResignationPage';
+import PlaquePage from '@/pages/PlaquePage';
+import SeverancePage from '@/pages/SeverancePage';
 
 export default function App() {
   return (

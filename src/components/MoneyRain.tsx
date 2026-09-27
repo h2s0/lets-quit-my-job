@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { CSSProperties } from 'react';
-import ConfettiBurst from './ConfettiBurst';
-import './MoneyRain.css';
+import ConfettiBurst from '@/components/ConfettiBurst';
+import '@/components/MoneyRain.css';
 
 const notePaths = [
   [9, '70px', '-205px', '-260px', '-72px', '-91px', '-225px', '-286px', '-24deg'],

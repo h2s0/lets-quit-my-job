@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import './ConfettiBurst.css';
+import '@/components/ConfettiBurst.css';
 
 const BURST_INTERVAL = 2400;
 const NESTED_BURST_DELAY = BURST_INTERVAL * 0.6;

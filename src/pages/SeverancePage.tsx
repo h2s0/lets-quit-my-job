@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import NumberFlow from '@number-flow/react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import type { FormData } from '../types';
+import type { FormData } from '@/types';
 import {
   calcSeverance,
   calcSeveranceProjection,
   isEligible,
-} from '../utils/calc';
-import { formatDotDate, formatKoreanDate } from '../utils/date';
-import { formatMoney } from '../utils/money';
-import MoneyRain from '../components/MoneyRain';
-import CompanySeal from '../components/CompanySeal';
-import './SeverancePage.css';
+} from '@/utils/calc';
+import { formatDotDate, formatKoreanDate } from '@/utils/date';
+import { formatMoney } from '@/utils/money';
+import MoneyRain from '@/components/MoneyRain';
+import CompanySeal from '@/components/CompanySeal';
+import '@/pages/SeverancePage.css';
 
 export default function SeverancePage() {
   const { state: data } = useLocation() as { state: FormData | null };
