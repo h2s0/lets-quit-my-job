@@ -13,7 +13,7 @@ interface InputStyleOptions {
 const variantClasses: Record<InputVariant, string> = {
   default: 'rounded-md border border-border bg-surface px-3 focus:border-primary',
   document: 'border-0 border-b border-border bg-transparent px-1 focus:border-primary',
-  table: 'border-0 border-r border-b border-border-strong bg-transparent px-3 focus:border-primary',
+  table: 'border-0 border-r border-b border-document-rule bg-transparent px-3 focus:border-primary',
 };
 
 const sizeClasses: Record<InputSize, string> = {

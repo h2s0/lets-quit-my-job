@@ -1,7 +1,6 @@
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { formatDateValue, parseDate } from '@/utils/date';
 import { inputClassName } from '@/components/ui';
-import 'react-datepicker/dist/react-datepicker.css';
 import '@/components/DateSelect.css';
 
 // 한국어 locale 직접 정의 (date-fns 의존성 없이)
@@ -64,7 +63,7 @@ export default function DateSelect({
         variant: 'document',
         inputSize: 'sm',
         invalid,
-        className: 'ds-input font-serif',
+        className: 'ds-input font-serif tracking-wide',
       })}
       wrapperClassName="ds-wrapper"
       calendarClassName="ds-calendar"
