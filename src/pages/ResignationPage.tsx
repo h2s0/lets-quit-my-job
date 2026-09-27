@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { FormData } from '@/types';
 import DateSelect from '@/components/DateSelect';
-import { Button, Input, Textarea, Typography } from '@/components/ui';
+import { Button, DocumentFrame, Input, Textarea, Typography } from '@/components/ui';
 import { formatDate } from '@/utils/date';
 import { formatKoreanMoney } from '@/utils/money';
 import '@/pages/ResignationPage.css';
@@ -119,7 +119,7 @@ export default function ResignationPage() {
   };
 
   return (
-    <main className="r-page">
+    <DocumentFrame className="r-page">
       <form className="r-document" onSubmit={handleSubmit} noValidate>
         <header className="r-header">
           <p className="r-kicker">RESIGNATION LETTER</p>
@@ -234,6 +234,6 @@ export default function ResignationPage() {
         {formMessage && <Typography variant="caption" tone="danger" className="r-form-error" id="form-validation-message" role="alert">{formMessage}</Typography>}
         <Button className="r-submit" type="submit" size="lg" shape="square" fullWidth>사직서 제출하기</Button>
       </form>
-    </main>
+    </DocumentFrame>
   );
 }

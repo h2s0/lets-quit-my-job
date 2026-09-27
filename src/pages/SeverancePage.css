@@ -5,9 +5,7 @@
      단, 390px보다 좁은 화면에서는 폭을 화면에 맞춰 줄인다 — 고정폭을 쓰면 화면
      밖으로 밀려나가 오른쪽(혹은 왼쪽)이 잘려 보인다. */
   position: relative;
-  width: min(390px, 100%);
   min-height: 844px;
-  margin: 0 auto;
   overflow: hidden;
   background: var(--color-paper) url('/resignation-paper-selected.webp') center / 100% 100% no-repeat;
   font-family: var(--font-serif);
@@ -141,7 +139,6 @@
   transform: rotate(-7deg);
 }
 
-.sv-page .sv-actions { margin-top: 10px; }
 /* 링크 밑줄 하나짜리 텍스트로 있던 걸, 위쪽 강조 자리로 옮기면서 다른 버튼들과
    같은 무게감의 버튼으로 다시 그렸다(폰트도 sans로 튀던 것 제거 — 페이지 기본
    serif를 그대로 물려받는다). */
@@ -227,12 +224,6 @@
 }
 .sv-patience-copy { position: absolute; top: 624px; right: 0; left: 0; text-align: center; }
 .sv-document--pending .sv-disclaimer { top: 690px; right: 38px; left: 38px; margin: 0; }
-.sv-document--pending + .sv-actions { margin-top: 0; }
-
-@media (min-width: 640px) {
-  .sv-page { margin: 30px auto; box-shadow: var(--shadow-paper); }
-}
-
 @media (max-width: 360px) {
   .sv-document { padding-inline: 42px; }
   .sv-document--pending { padding-inline: 42px; }

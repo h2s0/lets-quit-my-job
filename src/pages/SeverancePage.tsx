@@ -11,7 +11,7 @@ import { formatDate } from '@/utils/date';
 import { formatMoney } from '@/utils/money';
 import MoneyRain from '@/components/MoneyRain';
 import CompanySeal from '@/components/CompanySeal';
-import { Button, Typography } from '@/components/ui';
+import { ActionGroup, Button, DocumentFrame, Typography } from '@/components/ui';
 import '@/pages/SeverancePage.css';
 
 export default function SeverancePage() {
@@ -37,10 +37,10 @@ export default function SeverancePage() {
       <Button className="sv-share" variant="outline" fullWidth onClick={handleShare}>
         {copied ? '링크 복사 완료' : '동료에게 퇴사 권유하기'}
       </Button>
-      <nav className="sv-actions" aria-label="결과 화면 이동">
+      <ActionGroup className="relative mt-2" aria-label="결과 화면 이동">
         <Button variant="secondary" onClick={() => navigate('/plaque', { state: data })}>이전으로</Button>
         <Button onClick={() => navigate('/', { replace: true })}>처음부터</Button>
-      </nav>
+      </ActionGroup>
     </>
   );
 
@@ -52,7 +52,7 @@ export default function SeverancePage() {
     );
 
     return (
-      <main className="sv-page sv-page--pending">
+      <DocumentFrame className="sv-page sv-page--pending">
         <div className="sv-pending-art-clip" aria-hidden="true">
           <img className="sv-pending-art" src="/pending-burst-calendars.webp" alt="" />
         </div>
@@ -92,14 +92,14 @@ export default function SeverancePage() {
           <Typography variant="caption" serif leading="relaxed" className="sv-disclaimer">본 결과는 예상 금액이며, 실제 정산 시 변동될 수 있습니다.</Typography>
         </article>
         {actions}
-      </main>
+      </DocumentFrame>
     );
   }
 
   const amount = calcSeverance(data.monthlySalary, data.startDate, data.endDate);
 
   return (
-    <main className="sv-page">
+    <DocumentFrame className="sv-page">
       <MoneyRain />
       <article className="sv-document">
         <header className="sv-document-header">
@@ -135,6 +135,6 @@ export default function SeverancePage() {
         </footer>
       </article>
       {actions}
-    </main>
+    </DocumentFrame>
   );
 }

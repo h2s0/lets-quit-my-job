@@ -5,7 +5,7 @@ import type { FormData } from '@/types';
 import { isEligible } from '@/utils/calc';
 import { formatTenure } from '@/utils/date';
 import CompanySeal from '@/components/CompanySeal';
-import { Button, Typography } from '@/components/ui';
+import { ActionGroup, Button, DocumentFrame, Typography } from '@/components/ui';
 import '@/pages/PlaquePage.css';
 
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
@@ -52,7 +52,7 @@ export default function PlaquePage() {
   };
 
   return (
-    <main className="p-page">
+    <DocumentFrame className="p-page">
       <section className="p-award" aria-labelledby="plaque-title" ref={plaqueRef}>
         <div className="p-engraving">
           <div className="p-emblem" aria-hidden="true">
@@ -79,14 +79,14 @@ export default function PlaquePage() {
         </div>
       </section>
 
-      <nav className="p-actions" aria-label="감사패 단계 이동">
+      <ActionGroup className="absolute inset-x-0 bottom-6" aria-label="감사패 단계 이동">
         <Button variant="secondary" onClick={() => navigate('/')}>이전으로</Button>
         <Button
           onClick={() => navigate('/severance', { state: data })}
         >
           {eligible ? '퇴직금 확인하기' : '존버 D-day 확인하기'}
         </Button>
-      </nav>
+      </ActionGroup>
       <Button
         className="p-save"
         variant="ghost"
@@ -103,6 +103,6 @@ export default function PlaquePage() {
           <line x1="12" y1="15" x2="12" y2="3" />
         </svg>
       </Button>
-    </main>
+    </DocumentFrame>
   );
 }
