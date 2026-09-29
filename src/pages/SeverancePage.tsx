@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import NumberFlow from '@number-flow/react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import type { FormData } from '@/types';
 import {
   calcSeverance,
   calcSeveranceProjection,
@@ -9,13 +8,14 @@ import {
 } from '@/utils/calc';
 import { formatDate } from '@/utils/date';
 import { formatMoney } from '@/utils/money';
+import { getResignationRouteData } from '@/utils/resignationRouteState';
 import MoneyRain from '@/components/MoneyRain';
 import CompanySeal from '@/components/CompanySeal';
 import { Button, DocumentFrame, Typography } from '@/components/ui';
 import '@/pages/SeverancePage.css';
 
 export default function SeverancePage() {
-  const { state: data } = useLocation() as { state: FormData | null };
+  const data = getResignationRouteData(useLocation().state);
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
 

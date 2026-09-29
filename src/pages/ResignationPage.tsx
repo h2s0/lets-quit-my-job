@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { FormData } from '@/types';
+import type { ResignationFormData } from '@/types';
 import DateSelect from '@/components/DateSelect';
 import { Button, DocumentFrame, Input, Textarea, Typography } from '@/components/ui';
 import { formatDate } from '@/utils/date';
@@ -19,7 +19,7 @@ export default function ResignationPage() {
   const [stampRun, setStampRun] = useState(0);
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [formMessage, setFormMessage] = useState('');
-  const [form, setForm] = useState<FormData>({
+  const [form, setForm] = useState<ResignationFormData>({
     company: '',
     team: '',
     position: '',
@@ -30,7 +30,7 @@ export default function ResignationPage() {
     reason: '일신상의 이유로 사직하고자 하오니 허락하여 주시기 바랍니다.',
   });
 
-  const set = (key: keyof FormData) => (
+  const set = (key: keyof ResignationFormData) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const value = key === 'monthlySalary'

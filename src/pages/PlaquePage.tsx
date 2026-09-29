@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { toPng } from 'html-to-image';
-import type { FormData } from '@/types';
 import { isEligible } from '@/utils/calc';
 import { formatTenure } from '@/utils/date';
+import { getResignationRouteData } from '@/utils/resignationRouteState';
 import CompanySeal from '@/components/CompanySeal';
 import { Button, DocumentFrame, Typography } from '@/components/ui';
 import '@/pages/PlaquePage.css';
@@ -18,7 +18,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 
 export default function PlaquePage() {
-  const { state: data } = useLocation() as { state: FormData | null };
+  const data = getResignationRouteData(useLocation().state);
   const navigate = useNavigate();
   const plaqueRef = useRef<HTMLElement>(null);
   const [saving, setSaving] = useState(false);
