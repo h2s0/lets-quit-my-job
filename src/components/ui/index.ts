@@ -1,10 +1,7 @@
-export { Badge } from '@/components/ui/Badge';
 export { Button } from '@/components/ui/Button';
 export { DocumentFrame } from '@/components/ui/DocumentFrame';
 export { Input } from '@/components/ui/Input';
 export { inputClassName } from '@/components/ui/inputStyles';
-export { Modal } from '@/components/ui/Modal';
-export { Select } from '@/components/ui/Select';
 export { Textarea } from '@/components/ui/Textarea';
 export { Typography } from '@/components/ui/Typography';
 export type { InputSize, InputVariant } from '@/components/ui/inputStyles';
